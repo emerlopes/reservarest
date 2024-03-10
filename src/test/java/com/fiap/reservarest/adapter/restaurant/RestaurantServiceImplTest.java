@@ -3,6 +3,7 @@ package com.fiap.reservarest.adapter.restaurant;
 import com.fiap.reservarest.adapter.restaurant.entity.RestaurantEntity;
 import com.fiap.reservarest.adapter.restaurant.repository.RestaurantRepository;
 import com.fiap.reservarest.domain.restaurant.entity.RestaurantDomainEntity;
+import com.fiap.reservarest.domain.restaurant.exception.RestaurantDomainCustomException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -12,10 +13,13 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class RestaurantServiceImplTest {
@@ -50,6 +54,7 @@ class RestaurantServiceImplTest {
                 8.0,
                 48
         );
+
         Mockito.when(restaurantRepository.save(Mockito.any(RestaurantEntity.class))).thenReturn(restaurantEntity);
 
         // Act
@@ -58,6 +63,70 @@ class RestaurantServiceImplTest {
         // Assert
         assertThat(result).isNotNull();
 
+    }
+
+    @Test
+    void shouldFindRestaurantByKeyWord() {
+
+        // Arrange
+        RestaurantDomainEntity restaurantDomainEntity = createRestaurantDomainEntity(
+                "Restaurante da Maria",
+                "Rua 1, 123",
+                "Brasileira",
+                8.0,
+                48
+        );
+
+        List<RestaurantEntity> restaurantEntity = creRestaurantEntities();
+
+        Mockito.when(restaurantRepository.findRestaurantsByKeyword(Mockito.anyString())).thenReturn(restaurantEntity);
+
+        // Act
+        final var result = restaurantService.findRestaurantByKeyWord(Mockito.anyString());
+
+        // Assert
+        assertThat(result).isNotNull();
+
+    }
+
+    @Test
+    void shouldFindRestaurants() {
+
+        // Arrange
+        // Act
+        final var result = restaurantService.findRestaurants();
+
+        // Assert
+        assertThat(result).isNotNull();
+
+    }
+
+    @Test
+    void findByExternalIdShouldReturnRestaurantWhenExists() {
+        UUID externalId = UUID.randomUUID();
+        when(restaurantRepository.findRestaurantsByExternalId(externalId))
+                .thenReturn(Optional.of(new RestaurantEntity(
+                        uuid,
+                        "Restaurante da Maria",
+                        "Rua 1, 123",
+                        "Brasileira",
+                        8.0,
+                        48,
+                        LocalDateTime.now(
+                ))));
+
+        RestaurantDomainEntity result = restaurantService.findByExternalId(externalId);
+
+        assertNotNull(result);
+    }
+
+    @Test
+    void findByExternalIdShouldThrowExceptionWhenRestaurantDoesNotExist() {
+        UUID externalId = UUID.randomUUID();
+        when(restaurantRepository.findRestaurantsByExternalId(externalId))
+                .thenReturn(Optional.empty());
+
+        assertThrows(RestaurantDomainCustomException.class, () -> restaurantService.findByExternalId(externalId));
     }
 
     private RestaurantDomainEntity createRestaurantDomainEntity(
@@ -96,4 +165,15 @@ class RestaurantServiceImplTest {
         );
     }
 
+    private List<RestaurantEntity> creRestaurantEntities() {
+        return List.of(new RestaurantEntity(
+                uuid,
+                "Restaurante da Maria",
+                "Rua 1, 123",
+                "Brasileira",
+                8.0,
+                48,
+                LocalDateTime.now()
+        ));
+    }
 }
