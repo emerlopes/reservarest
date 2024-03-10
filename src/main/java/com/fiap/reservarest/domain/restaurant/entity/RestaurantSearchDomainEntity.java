@@ -12,4 +12,5 @@ public class RestaurantSearchDomainEntity {
     public String getKeyWord() {
         return keyWord;
     }
+
 }

@@ -10,7 +10,6 @@ import java.util.Locale;
 import java.util.UUID;
 
 @Getter
-@Setter
 @Entity
 @NoArgsConstructor
 public class RestaurantEntity {
@@ -51,17 +50,4 @@ public class RestaurantEntity {
         this.createAt = createAt;
     }
 
-    @Override
-    public String toString() {
-        return "RestaurantEntity{" +
-                "id=" + id +
-                ", externalId=" + externalId +
-                ", name='" + name + '\'' +
-                ", location='" + location + '\'' +
-                ", cuisineType='" + cuisineType + '\'' +
-                ", hoursOfOperation=" + hoursOfOperation +
-                ", capacity=" + capacity +
-                ", createAt=" + createAt +
-                '}';
-    }
 }
