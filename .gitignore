@@ -10,6 +10,17 @@
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
+# Gradle
+.gradle
+
+# Build
+build
+
+# Visual Studio
+src/.DS_Store
+src/main/.DS_Store
+.DS_Store
+
 # Package Files #
 *.jar
 *.war
