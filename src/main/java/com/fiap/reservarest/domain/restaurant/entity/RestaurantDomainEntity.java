@@ -83,16 +83,4 @@ public class RestaurantDomainEntity {
         }
     }
 
-    @Override
-    public String toString() {
-        return "RestaurantDomainEntity{" +
-                "externalId=" + externalId +
-                ", name='" + name + '\'' +
-                ", location='" + location + '\'' +
-                ", cuisineType='" + cuisineType + '\'' +
-                ", hoursOfOperation=" + hoursOfOperation +
-                ", capacity=" + capacity +
-                ", createAt=" + createAt +
-                '}';
-    }
 }

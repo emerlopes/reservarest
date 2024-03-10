@@ -35,10 +35,6 @@ public enum RestaurantsEnum {
         return location;
     }
 
-    public String getHoursOfOperation() {
-        return hoursOfOperation;
-    }
-
     public int getCapacity() {
         return capacity;
     }

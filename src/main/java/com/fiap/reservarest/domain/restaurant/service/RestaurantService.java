@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface RestaurantService {
     RestaurantDomainEntity createRestaurant(RestaurantDomainEntity restaurantDomainEntity);
-    List<RestaurantDomainEntity> findRestaurantBySearch(String name);
+    List<RestaurantDomainEntity> findRestaurantByKeyWord(String name);
     List<RestaurantDomainEntity> findRestaurants();
 }

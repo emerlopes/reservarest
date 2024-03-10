@@ -23,7 +23,7 @@ public class RestaurantSearchUseCaseImpl implements RestaurantSearchUseCase {
         final var keyword = restaurantSearchDomainEntity.getKeyWord();
 
         if (keyword != null)
-            return restaurantService.findRestaurantBySearch(keyword.toLowerCase(Locale.ROOT));
+            return restaurantService.findRestaurantByKeyWord(keyword.toLowerCase(Locale.ROOT));
 
         return restaurantService.findRestaurants();
     }
