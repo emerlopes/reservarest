@@ -29,7 +29,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-    public List<RestaurantDomainEntity> findRestaurantBySearch(String restaurant) {
+    public List<RestaurantDomainEntity> findRestaurantByKeyWord(String restaurant) {
         final var entities = restaurantRepository.findRestaurantsByKeyword(restaurant);
         return RestaurantMapper.toDomainEntity(entities);
     }
