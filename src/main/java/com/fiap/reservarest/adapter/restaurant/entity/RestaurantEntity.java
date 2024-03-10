@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.Locale;
 import java.util.UUID;
 
 @Getter
@@ -42,9 +43,9 @@ public class RestaurantEntity {
             final LocalDateTime createAt
     ) {
         this.externalId = externalId;
-        this.name = name;
-        this.location = location;
-        this.cuisineType = cuisineType;
+        this.name = name.toLowerCase(Locale.ROOT);
+        this.location = location.toLowerCase();
+        this.cuisineType = cuisineType.toLowerCase(Locale.ROOT);
         this.hoursOfOperation = hoursOfOperation;
         this.capacity = capacity;
         this.createAt = createAt;

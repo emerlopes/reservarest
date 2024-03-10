@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.fiap.reservarest.application.entrypoint.rest.restaurant.RestaurantControllerTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2024-03-10T12:26:28" hostname="Air-de-Emerson.intelbras.local" time="0.024">
-  <properties/>
-  <testcase name="testCreateRestaurantSuccess()" classname="com.fiap.reservarest.application.entrypoint.rest.restaurant.RestaurantControllerTest" time="0.024"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
