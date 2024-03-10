@@ -7,6 +7,7 @@ import java.util.UUID;
 
 public class RestaurantDomainEntity {
 
+    private Long id;
     private UUID externalId;
     private String name;
     private String location;
@@ -16,6 +17,28 @@ public class RestaurantDomainEntity {
     private LocalDateTime createAt;
 
     public RestaurantDomainEntity() {
+    }
+
+    public RestaurantDomainEntity(
+            final Long id,
+            final UUID externalId,
+            final String name,
+            final String location,
+            final String cuisineType,
+            final Double hoursOfOperation,
+            final Integer capacity,
+            final LocalDateTime createAt
+    ) {
+        this.id = id;
+        this.externalId = externalId;
+        this.name = name;
+        this.location = location;
+        this.cuisineType = cuisineType;
+        this.hoursOfOperation = hoursOfOperation;
+        this.capacity = capacity;
+        this.createAt = createAt;
+
+        validate();
     }
 
     public RestaurantDomainEntity(
@@ -35,6 +58,10 @@ public class RestaurantDomainEntity {
         this.createAt = createAt;
 
         validate();
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public UUID getExternalId() {
@@ -82,5 +109,4 @@ public class RestaurantDomainEntity {
             throw new RestaurantDomainCustomException("Capacity cannot be null or less than or equal to 0");
         }
     }
-
 }

@@ -3,6 +3,7 @@ package com.fiap.reservarest.adapter.restaurant;
 import com.fiap.reservarest.adapter.restaurant.mapper.RestaurantMapper;
 import com.fiap.reservarest.adapter.restaurant.repository.RestaurantRepository;
 import com.fiap.reservarest.domain.restaurant.entity.RestaurantDomainEntity;
+import com.fiap.reservarest.domain.restaurant.exception.RestaurantDomainCustomException;
 import com.fiap.reservarest.domain.restaurant.service.RestaurantService;
 import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
@@ -38,6 +39,17 @@ public class RestaurantServiceImpl implements RestaurantService {
     public List<RestaurantDomainEntity> findRestaurants() {
         final var entities = restaurantRepository.findAll();
         return RestaurantMapper.toDomainEntity(entities);
+    }
+
+    @Override
+    public RestaurantDomainEntity findByExternalId(UUID externalId) {
+        final var entity = restaurantRepository.findRestaurantsByExternalId(externalId);
+
+        if (entity.isPresent()) {
+            return RestaurantMapper.toDomainEntity(entity.get());
+        } else {
+            throw new RestaurantDomainCustomException("Restaurant not found");
+        }
     }
 
     @PostConstruct
