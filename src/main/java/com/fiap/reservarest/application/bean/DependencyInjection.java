@@ -2,7 +2,9 @@ package com.fiap.reservarest.application.bean;
 
 import com.fiap.reservarest.domain.restaurant.service.RestaurantService;
 import com.fiap.reservarest.domain.restaurant.usecase.RestaurantCreationUseCase;
+import com.fiap.reservarest.domain.restaurant.usecase.RestaurantSearchUseCase;
 import com.fiap.reservarest.domain.restaurant.usecase.impl.RestaurantCreationUseCaseImpl;
+import com.fiap.reservarest.domain.restaurant.usecase.impl.RestaurantSearchUseCaseImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -14,5 +16,12 @@ public class DependencyInjection {
             final RestaurantService restaurantService
     ) {
         return new RestaurantCreationUseCaseImpl(restaurantService);
+    }
+
+    @Bean
+    public RestaurantSearchUseCase restaurantSearchUseCaseInstance(
+            final RestaurantService restaurantService
+    ) {
+        return new RestaurantSearchUseCaseImpl(restaurantService);
     }
 }
