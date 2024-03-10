@@ -6,7 +6,7 @@ on:
       - feature/*
 
 jobs:
-  build-and-test:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -21,6 +21,19 @@ jobs:
 
       - name: Build with Gradle
         run: ./gradlew build
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'adopt'
+          cache: gradle
 
       - name: Run tests
         run: ./gradlew test
