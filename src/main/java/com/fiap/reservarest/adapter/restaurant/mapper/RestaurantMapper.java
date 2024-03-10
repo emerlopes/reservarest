@@ -5,8 +5,10 @@ import com.fiap.reservarest.application.entrypoint.rest.restaurant.dto.Restauran
 import com.fiap.reservarest.application.entrypoint.rest.restaurant.dto.RestaurantResponseDTO;
 import com.fiap.reservarest.application.shared.CustomResponse;
 import com.fiap.reservarest.domain.restaurant.entity.RestaurantDomainEntity;
+import com.fiap.reservarest.domain.restaurant.entity.RestaurantSearchDomainEntity;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 public class RestaurantMapper {
@@ -23,6 +25,23 @@ public class RestaurantMapper {
                 restaurantEntity.getCapacity(),
                 restaurantEntity.getCreateAt()
         );
+    }
+
+    public static List<RestaurantDomainEntity> toDomainEntity(
+            final List<RestaurantEntity> restaurantEntities
+    ) {
+
+        return restaurantEntities.stream()
+                .map(restaurantEntity -> new RestaurantDomainEntity(
+                        restaurantEntity.getExternalId(),
+                        restaurantEntity.getName(),
+                        restaurantEntity.getLocation(),
+                        restaurantEntity.getCuisineType(),
+                        restaurantEntity.getHoursOfOperation(),
+                        restaurantEntity.getCapacity(),
+                        restaurantEntity.getCreateAt()
+                ))
+                .toList();
     }
 
     public static RestaurantDomainEntity toDomainEntity(
@@ -53,6 +72,14 @@ public class RestaurantMapper {
         );
     }
 
+    public static RestaurantSearchDomainEntity toDomainEntity(
+            final String keyword
+    ) {
+        return new RestaurantSearchDomainEntity(
+                keyword
+        );
+    }
+
     public static CustomResponse<RestaurantResponseDTO> toResponseDTO(
             final RestaurantDomainEntity restaurantDomainEntity
     ) {
@@ -67,5 +94,21 @@ public class RestaurantMapper {
         );
 
         return new CustomResponse<RestaurantResponseDTO>().setData(response);
+    }
+
+    public static CustomResponse<List<RestaurantResponseDTO>> toResponseDTO(
+            final List<RestaurantDomainEntity> restaurantDomainEntities
+    ) {
+        final var response = restaurantDomainEntities.stream().map(restaurantDomainEntity -> new RestaurantResponseDTO(
+                restaurantDomainEntity.getExternalId(),
+                restaurantDomainEntity.getName(),
+                restaurantDomainEntity.getLocation(),
+                restaurantDomainEntity.getCuisineType(),
+                restaurantDomainEntity.getHoursOfOperation(),
+                restaurantDomainEntity.getCapacity(),
+                restaurantDomainEntity.getCreateAt()
+        )).toList();
+
+        return new CustomResponse<List<RestaurantResponseDTO>>().setData(response);
     }
 }

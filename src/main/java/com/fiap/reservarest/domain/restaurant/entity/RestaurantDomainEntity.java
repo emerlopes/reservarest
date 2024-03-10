@@ -15,6 +15,9 @@ public class RestaurantDomainEntity {
     private Integer capacity;
     private LocalDateTime createAt;
 
+    public RestaurantDomainEntity() {
+    }
+
     public RestaurantDomainEntity(
             final UUID externalId,
             final String name,

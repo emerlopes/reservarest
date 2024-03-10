@@ -8,6 +8,7 @@ import jakarta.annotation.PostConstruct;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -27,19 +28,36 @@ public class RestaurantServiceImpl implements RestaurantService {
         return RestaurantMapper.toDomainEntity(domainEntity);
     }
 
+    @Override
+    public List<RestaurantDomainEntity> findRestaurantBySearch(String restaurant) {
+        final var entities = restaurantRepository.findRestaurantsByKeyword(restaurant);
+        return RestaurantMapper.toDomainEntity(entities);
+    }
+
+    @Override
+    public List<RestaurantDomainEntity> findRestaurants() {
+        final var entities = restaurantRepository.findAll();
+        return RestaurantMapper.toDomainEntity(entities);
+    }
+
     @PostConstruct
     public void init() {
         if (restaurantRepository.count() == 0) {
-            RestaurantDomainEntity restaurantDomainEntity = new RestaurantDomainEntity(
-                    UUID.randomUUID(),
-                    "Restaurante da Maria",
-                    "Rua 1, 123",
-                    "Brasileira",
-                    8.0,
-                    48,
-                    LocalDateTime.now()
-            );
-            restaurantRepository.save(RestaurantMapper.toEntity(restaurantDomainEntity));
+
+            for (final var restaurant : RestaurantsEnum.values()) {
+
+                RestaurantDomainEntity restaurantDomainEntity = new RestaurantDomainEntity(
+                        UUID.randomUUID(),
+                        restaurant.getName(),
+                        restaurant.getLocation(),
+                        restaurant.getCuisineType().toString(),
+                        8.0,
+                        restaurant.getCapacity(),
+                        LocalDateTime.now()
+                );
+                restaurantRepository.save(RestaurantMapper.toEntity(restaurantDomainEntity));
+            }
+
         }
     }
 }
