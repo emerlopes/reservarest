@@ -12,6 +12,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -50,10 +51,47 @@ class RestaurantServiceImplTest {
                 8.0,
                 48
         );
+
         Mockito.when(restaurantRepository.save(Mockito.any(RestaurantEntity.class))).thenReturn(restaurantEntity);
 
         // Act
         final var result = restaurantService.createRestaurant(restaurantDomainEntity);
+
+        // Assert
+        assertThat(result).isNotNull();
+
+    }
+
+    @Test
+    void shouldFindRestaurantByKeyWord() {
+
+        // Arrange
+        RestaurantDomainEntity restaurantDomainEntity = createRestaurantDomainEntity(
+                "Restaurante da Maria",
+                "Rua 1, 123",
+                "Brasileira",
+                8.0,
+                48
+        );
+
+        List<RestaurantEntity> restaurantEntity = creRestaurantEntities();
+
+        Mockito.when(restaurantRepository.findRestaurantsByKeyword(Mockito.anyString())).thenReturn(restaurantEntity);
+
+        // Act
+        final var result = restaurantService.findRestaurantByKeyWord(Mockito.anyString());
+
+        // Assert
+        assertThat(result).isNotNull();
+
+    }
+
+    @Test
+    void shouldFindRestaurants() {
+
+        // Arrange
+        // Act
+        final var result = restaurantService.findRestaurants();
 
         // Assert
         assertThat(result).isNotNull();
@@ -96,4 +134,15 @@ class RestaurantServiceImplTest {
         );
     }
 
+    private List<RestaurantEntity> creRestaurantEntities() {
+        return List.of(new RestaurantEntity(
+                uuid,
+                "Restaurante da Maria",
+                "Rua 1, 123",
+                "Brasileira",
+                8.0,
+                48,
+                LocalDateTime.now()
+        ));
+    }
 }
