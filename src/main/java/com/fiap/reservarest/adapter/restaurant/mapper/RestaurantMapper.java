@@ -17,6 +17,7 @@ public class RestaurantMapper {
             final RestaurantEntity restaurantEntity
     ) {
         return new RestaurantDomainEntity(
+                restaurantEntity.getId(),
                 restaurantEntity.getExternalId(),
                 restaurantEntity.getName(),
                 restaurantEntity.getLocation(),
@@ -62,6 +63,7 @@ public class RestaurantMapper {
             final RestaurantDomainEntity restaurantDomainEntity
     ) {
         return new RestaurantEntity(
+                restaurantDomainEntity.getId(),
                 restaurantDomainEntity.getExternalId(),
                 restaurantDomainEntity.getName(),
                 restaurantDomainEntity.getLocation(),
@@ -111,4 +113,20 @@ public class RestaurantMapper {
 
         return new CustomResponse<List<RestaurantResponseDTO>>().setData(response);
     }
+
+    public static RestaurantResponseDTO toResponse(
+            final RestaurantDomainEntity restaurantDomainEntity
+    ) {
+        return new RestaurantResponseDTO(
+                restaurantDomainEntity.getExternalId(),
+                restaurantDomainEntity.getName(),
+                restaurantDomainEntity.getLocation(),
+                restaurantDomainEntity.getCuisineType(),
+                restaurantDomainEntity.getHoursOfOperation(),
+                restaurantDomainEntity.getCapacity(),
+                restaurantDomainEntity.getCreateAt()
+        );
+
+    }
+
 }

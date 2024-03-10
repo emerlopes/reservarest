@@ -33,6 +33,26 @@ public class RestaurantEntity {
     private LocalDateTime createAt;
 
     public RestaurantEntity(
+            final Long id,
+            final UUID externalId,
+            final String name,
+            final String location,
+            final String cuisineType,
+            final Double hoursOfOperation,
+            final Integer capacity,
+            final LocalDateTime createAt
+    ) {
+        this.id = id;
+        this.externalId = externalId;
+        this.name = name;
+        this.location = location;
+        this.cuisineType = cuisineType;
+        this.hoursOfOperation = hoursOfOperation;
+        this.capacity = capacity;
+        this.createAt = createAt;
+    }
+
+    public RestaurantEntity(
             final UUID externalId,
             final String name,
             final String location,

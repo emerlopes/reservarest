@@ -4,10 +4,16 @@ import com.fiap.reservarest.adapter.booking.mapper.BookingMapper;
 import com.fiap.reservarest.adapter.booking.repository.BookingRepository;
 import com.fiap.reservarest.domain.booking.entity.BookingDomainEntity;
 import com.fiap.reservarest.domain.booking.service.BookingService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class BookingServiceImpl implements BookingService {
 
-    private BookingRepository bookingRepository;
+    private final BookingRepository bookingRepository;
+
+    public BookingServiceImpl(BookingRepository bookingRepository) {
+        this.bookingRepository = bookingRepository;
+    }
 
     @Override
     public BookingDomainEntity booking(BookingDomainEntity bookingDomainEntity) {
