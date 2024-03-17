@@ -15,6 +15,7 @@ import org.mockito.MockitoAnnotations;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.*;
 
 class BookingServiceImplTest {
@@ -32,46 +33,50 @@ class BookingServiceImplTest {
 
     @Test
     void bookingShouldReturnBookingWhenBookingIsSuccessful() {
+        // Arrange
+        final String reservationName = "Teste";
+        final LocalDateTime reservationTime = LocalDateTime.now();
+        final int numberOfPeople = 2;
 
-        final var uuid = UUID.randomUUID();
-
-        BookingDomainEntity bookingDomainEntity = new BookingDomainEntity(
+        RestaurantDomainEntity restaurant = new RestaurantDomainEntity(
+                UUID.randomUUID(),
                 "Teste",
-                LocalDateTime.now(),
+                "Teste",
+                "Teste",
+                8.0,
                 2,
-                new RestaurantDomainEntity(
-                        UUID.randomUUID(),
-                        "Teste",
-                        "Teste",
-                        "Teste",
-                        8.0,
-                        2,
-                        LocalDateTime.now()
-
-                ));
-
-        final var bookingEntity = new BookingEntity(
-                bookingDomainEntity.getReservationName(),
-                bookingDomainEntity.getReservationTime(),
-                new RestaurantEntity(
-                        uuid,
-                        "Teste",
-                        "Teste",
-                        "Teste",
-                        8.0,
-                        2,
-                        LocalDateTime.now()
-                ),
-                2
+                LocalDateTime.now()
         );
 
+        BookingDomainEntity bookingDomainEntity = new BookingDomainEntity(
+                reservationName,
+                reservationTime,
+                numberOfPeople,
+                restaurant
+        );
+
+        BookingEntity bookingEntity = new BookingEntity(
+                reservationName,
+                reservationTime,
+                new RestaurantEntity(
+                        restaurant.getExternalId(),
+                        restaurant.getName(),
+                        restaurant.getLocation(),
+                        restaurant.getCuisineType(),
+                        restaurant.getHoursOfOperation(),
+                        restaurant.getCapacity(),
+                        restaurant.getCreateAt()
+                ),
+                numberOfPeople
+        );
 
         when(bookingRepository.save(any())).thenReturn(bookingEntity);
 
+        // Act
         BookingDomainEntity result = bookingService.booking(bookingDomainEntity);
 
+        // Assert
         verify(bookingRepository, times(1)).save(any());
-        Assertions.assertThat(result).isNotNull();
+        assertThat(result).isNotNull();
     }
-
 }

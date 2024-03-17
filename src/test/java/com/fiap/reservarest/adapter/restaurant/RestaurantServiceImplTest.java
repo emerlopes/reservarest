@@ -4,6 +4,7 @@ import com.fiap.reservarest.adapter.restaurant.entity.RestaurantEntity;
 import com.fiap.reservarest.adapter.restaurant.repository.RestaurantRepository;
 import com.fiap.reservarest.domain.restaurant.entity.RestaurantDomainEntity;
 import com.fiap.reservarest.domain.restaurant.exception.RestaurantDomainCustomException;
+import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -30,6 +31,9 @@ class RestaurantServiceImplTest {
     @Mock
     private RestaurantRepository restaurantRepository;
 
+    @Mock
+    private Logger logger;
+
     private final UUID uuid = UUID.fromString("123e4567-e89b-12d3-a456-426614174000");
 
     private final LocalDateTime LOCAL_DATE_TIME = LocalDateTime.of(2021, 10, 10, 10, 10, 10, 10);
@@ -37,7 +41,6 @@ class RestaurantServiceImplTest {
 
     @Test
     void shouldCreateRestaurant() {
-
         // Arrange
         RestaurantDomainEntity restaurantDomainEntity = createRestaurantDomainEntity(
                 "Restaurante da Maria",
@@ -58,16 +61,14 @@ class RestaurantServiceImplTest {
         Mockito.when(restaurantRepository.save(Mockito.any(RestaurantEntity.class))).thenReturn(restaurantEntity);
 
         // Act
-        final var result = restaurantService.createRestaurant(restaurantDomainEntity);
+        RestaurantDomainEntity result = restaurantService.createRestaurant(restaurantDomainEntity);
 
         // Assert
         assertThat(result).isNotNull();
-
     }
 
     @Test
     void shouldFindRestaurantByKeyWord() {
-
         // Arrange
         RestaurantDomainEntity restaurantDomainEntity = createRestaurantDomainEntity(
                 "Restaurante da Maria",
@@ -77,16 +78,15 @@ class RestaurantServiceImplTest {
                 48
         );
 
-        List<RestaurantEntity> restaurantEntity = creRestaurantEntities();
+        List<RestaurantEntity> restaurantEntities = createRestaurantEntities();
 
-        Mockito.when(restaurantRepository.findRestaurantsByKeyword(Mockito.anyString())).thenReturn(restaurantEntity);
+        Mockito.when(restaurantRepository.findRestaurantsByKeyword(Mockito.anyString())).thenReturn(restaurantEntities);
 
         // Act
-        final var result = restaurantService.findRestaurantByKeyWord(Mockito.anyString());
+        final var result = restaurantService.findRestaurantByKeyWord("keyword");
 
         // Assert
         assertThat(result).isNotNull();
-
     }
 
     @Test
@@ -165,7 +165,7 @@ class RestaurantServiceImplTest {
         );
     }
 
-    private List<RestaurantEntity> creRestaurantEntities() {
+    private List<RestaurantEntity> createRestaurantEntities() {
         return List.of(new RestaurantEntity(
                 uuid,
                 "Restaurante da Maria",

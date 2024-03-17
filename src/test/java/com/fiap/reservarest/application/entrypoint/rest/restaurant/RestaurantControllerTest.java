@@ -16,8 +16,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 @ExtendWith(MockitoExtension.class)
 class RestaurantControllerTest {
@@ -34,20 +37,27 @@ class RestaurantControllerTest {
     @Test
     void testCreateRestaurantSuccess() {
         // Arrange
-        final var restaurant = this.createRestaurantRequestDTO(
-                "name",
-                "location",
-                "cuisineType",
-                10.0,
-                100);
+        String name = "name";
+        String location = "location";
+        String cuisineType = "cuisineType";
+        double rating = 10.0;
+        int capacity = 100;
 
-        final var restaurantDomainEntity = new RestaurantDomainEntity(
+        RestaurantRequestDTO restaurant = createRestaurantRequestDTO(
+                name,
+                location,
+                cuisineType,
+                rating,
+                capacity
+        );
+
+        RestaurantDomainEntity restaurantDomainEntity = new RestaurantDomainEntity(
                 UUID.randomUUID(),
-                "name",
-                "location",
-                "cuisineType",
-                10.0,
-                100,
+                name,
+                location,
+                cuisineType,
+                rating,
+                capacity,
                 LocalDateTime.now()
         );
 
@@ -58,14 +68,12 @@ class RestaurantControllerTest {
 
         // Assert
         Mockito.verify(restaurantCreationUseCase, Mockito.times(1)).execute(Mockito.any());
-
     }
 
     @Test
     void shouldSearchRestaurantWhenReturnIsEmpty() {
-
         // Arrange
-        final var restaurantSearchDomainEntityResult = List.of(new RestaurantDomainEntity());
+        List<RestaurantDomainEntity> restaurantSearchDomainEntityResult = Collections.singletonList(new RestaurantDomainEntity());
 
         Mockito.when(restaurantSearchUseCase.execute(Mockito.any(RestaurantSearchDomainEntity.class))).thenReturn(restaurantSearchDomainEntityResult);
 
@@ -73,15 +81,14 @@ class RestaurantControllerTest {
         final var result = restaurantController.searchRestaurant(null);
 
         // Assert
-        Assertions.assertThat(result).isNotNull();
-
+        assertThat(result).isNotNull();
     }
 
     @Test
     void shouldSearchRestaurantWhenReturnIsNotEmpty() {
-
         // Arrange
-        final var restaurantSearchDomainEntityResult = new ArrayList<RestaurantDomainEntity>();
+        List<RestaurantDomainEntity> restaurantSearchDomainEntityResult = new ArrayList<>();
+        restaurantSearchDomainEntityResult.add(new RestaurantDomainEntity());
 
         Mockito.when(restaurantSearchUseCase.execute(Mockito.any(RestaurantSearchDomainEntity.class))).thenReturn(restaurantSearchDomainEntityResult);
 
@@ -89,8 +96,7 @@ class RestaurantControllerTest {
         final var result = restaurantController.searchRestaurant(null);
 
         // Assert
-        Assertions.assertThat(result).isNotNull();
-
+        assertThat(result).isNotNull();
     }
 
     private RestaurantRequestDTO createRestaurantRequestDTO(

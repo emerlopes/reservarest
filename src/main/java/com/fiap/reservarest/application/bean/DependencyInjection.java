@@ -8,6 +8,7 @@ import com.fiap.reservarest.domain.restaurant.usecase.RestaurantCreationUseCase;
 import com.fiap.reservarest.domain.restaurant.usecase.RestaurantSearchUseCase;
 import com.fiap.reservarest.domain.restaurant.usecase.impl.RestaurantCreationUseCaseImpl;
 import com.fiap.reservarest.domain.restaurant.usecase.impl.RestaurantSearchUseCaseImpl;
+import org.apache.logging.log4j.Logger;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -34,5 +35,10 @@ public class DependencyInjection {
             final RestaurantService restaurantService
     ) {
         return new BookingUseCaseImpl(bookingService, restaurantService);
+    }
+
+    @Bean
+    public Logger loggerInstance() {
+        return org.apache.logging.log4j.LogManager.getLogger();
     }
 }

@@ -13,6 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -31,7 +32,7 @@ class RestaurantCreationUseCaseImplTest {
     @Test
     void shouldCreateRestaurant() {
         // Arrange
-        final var restaurantDomainEntity = this.createRestaurantDomainEntity(
+        RestaurantDomainEntity restaurantDomainEntity = createRestaurantDomainEntity(
                 "name",
                 "location",
                 "cuisineType",
@@ -42,14 +43,15 @@ class RestaurantCreationUseCaseImplTest {
         Mockito.when(restaurantService.createRestaurant(restaurantDomainEntity)).thenReturn(restaurantDomainEntity);
 
         // Act
-        final var result = restaurantCreationUseCase.execute(restaurantDomainEntity);
+        RestaurantDomainEntity result = restaurantCreationUseCase.execute(restaurantDomainEntity);
 
         // Assert
-        Assertions
-                .assertThat(result)
+        assertThat(result)
+                .isNotNull()
                 .isEqualTo(restaurantDomainEntity)
                 .describedAs("The result should be the same as the restaurantDomainEntity");
     }
+
 
     private RestaurantDomainEntity createRestaurantDomainEntity(
             String name,

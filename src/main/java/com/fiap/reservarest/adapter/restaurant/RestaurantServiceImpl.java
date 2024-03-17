@@ -6,23 +6,36 @@ import com.fiap.reservarest.domain.restaurant.entity.RestaurantDomainEntity;
 import com.fiap.reservarest.domain.restaurant.exception.RestaurantDomainCustomException;
 import com.fiap.reservarest.domain.restaurant.service.RestaurantService;
 import jakarta.annotation.PostConstruct;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 @Service
 public class RestaurantServiceImpl implements RestaurantService {
 
+    private final Logger logger;
+
     private final RestaurantRepository restaurantRepository;
 
-    public RestaurantServiceImpl(RestaurantRepository restaurantRepository) {
+    public RestaurantServiceImpl(
+            final Logger logger,
+            final RestaurantRepository restaurantRepository
+    ) {
+        this.logger = logger;
         this.restaurantRepository = restaurantRepository;
     }
 
     @Override
-    public RestaurantDomainEntity createRestaurant(RestaurantDomainEntity restaurantDomainEntity) {
+    public RestaurantDomainEntity createRestaurant(
+            final RestaurantDomainEntity restaurantDomainEntity
+    ) {
+
+        logger.info("Creating restaurant: {}", restaurantDomainEntity.getName());
+
         final var entity = RestaurantMapper.toEntity(restaurantDomainEntity);
         final var domainEntity = restaurantRepository.save(entity);
 
@@ -30,19 +43,36 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-    public List<RestaurantDomainEntity> findRestaurantByKeyWord(String restaurant) {
-        final var entities = restaurantRepository.findRestaurantsByKeyword(restaurant);
+    public List<RestaurantDomainEntity> findRestaurantByKeyWord(
+            final String keyword
+    ) {
+
+        logger.info("Searching restaurant by keyword: {}", keyword);
+
+        final var entities = restaurantRepository.findRestaurantsByKeyword(keyword);
+
+        logger.info("Found {} restaurants by keyword", entities.size());
+
         return RestaurantMapper.toDomainEntity(entities);
     }
 
     @Override
     public List<RestaurantDomainEntity> findRestaurants() {
+
+        logger.info("Searching all restaurants");
+
         final var entities = restaurantRepository.findAll();
+
         return RestaurantMapper.toDomainEntity(entities);
     }
 
     @Override
-    public RestaurantDomainEntity findByExternalId(UUID externalId) {
+    public RestaurantDomainEntity findByExternalId(
+            final UUID externalId
+    ) {
+
+        logger.info("Searching restaurant by external id: {}", externalId);
+
         final var entity = restaurantRepository.findRestaurantsByExternalId(externalId);
 
         if (entity.isPresent()) {
@@ -60,9 +90,9 @@ public class RestaurantServiceImpl implements RestaurantService {
 
                 RestaurantDomainEntity restaurantDomainEntity = new RestaurantDomainEntity(
                         UUID.randomUUID(),
-                        restaurant.getName(),
-                        restaurant.getLocation(),
-                        restaurant.getCuisineType().toString(),
+                        restaurant.getName().toLowerCase(Locale.ROOT),
+                        restaurant.getLocation().toLowerCase(Locale.ROOT),
+                        restaurant.getCuisineType().toString().toLowerCase(Locale.ROOT),
                         8.0,
                         restaurant.getCapacity(),
                         LocalDateTime.now()
