@@ -21,6 +21,4 @@ public class RatingResponseDTO {
     private String comment;
     private LocalDateTime createdAt;
 
-
-
 }
