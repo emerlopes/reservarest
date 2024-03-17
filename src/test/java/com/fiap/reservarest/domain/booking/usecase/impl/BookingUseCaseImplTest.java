@@ -35,7 +35,7 @@ class BookingUseCaseImplTest {
     }
 
     @Test
-    void executeShouldReturnBookingWhenRestaurantExistsAndBookingIsSuccessful() {
+    void shouldExecuteSuccessfully() {
         // Arrange
         UUID restaurantId = UUID.randomUUID();
 
