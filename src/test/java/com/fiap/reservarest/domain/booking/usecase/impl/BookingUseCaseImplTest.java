@@ -36,25 +36,29 @@ class BookingUseCaseImplTest {
 
     @Test
     void executeShouldReturnBookingWhenRestaurantExistsAndBookingIsSuccessful() {
-
-        final var uuid = UUID.randomUUID();
+        // Arrange
+        UUID restaurantId = UUID.randomUUID();
 
         BookingDomainEntity bookingDomainEntity = new BookingDomainEntity(
                 "Teste",
                 LocalDateTime.now(),
                 2,
-                uuid
-
+                restaurantId
         );
 
-        when(restaurantService.findByExternalId(Mockito.any(UUID.class))).thenReturn(new RestaurantDomainEntity());
+        RestaurantDomainEntity restaurantDomainEntity = new RestaurantDomainEntity();
+
+        when(restaurantService.findByExternalId(restaurantId)).thenReturn(restaurantDomainEntity);
         when(bookingService.booking(any(BookingDomainEntity.class))).thenReturn(bookingDomainEntity);
 
+        // Act
         BookingDomainEntity result = bookingUseCase.execute(bookingDomainEntity);
 
-        verify(restaurantService, times(1)).findByExternalId(uuid);
+        // Assert
+        verify(restaurantService, times(1)).findByExternalId(restaurantId);
         verify(bookingService, times(1)).booking(any(BookingDomainEntity.class));
         assertEquals(bookingDomainEntity, result);
     }
+
     
 }

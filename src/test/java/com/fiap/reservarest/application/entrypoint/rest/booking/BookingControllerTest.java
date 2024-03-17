@@ -30,26 +30,43 @@ class BookingControllerTest {
 
     @Test
     void bookingShouldReturnCreatedStatusWhenBookingIsSuccessful() {
+        // Arrange
+        LocalDateTime reservationTime = LocalDateTime.now();
+        UUID restaurantId = UUID.randomUUID();
+        String reservationName = "reservationName";
+        int amountPeople = 1;
 
-        final var bookingDomainEntity = new BookingDomainEntity(
+        BookingDomainEntity bookingDomainEntity = new BookingDomainEntity(
                 1L,
-                "reservationTime",
-                LocalDateTime.now(),
+                reservationName,
+                reservationTime,
                 null,
                 new RestaurantDomainEntity()
         );
 
-        BookingRequestDTO bookingRequestDTO = new BookingRequestDTO();
-        bookingRequestDTO.setReservationName("reservationName");
-        bookingRequestDTO.setReservationTime(LocalDateTime.now());
-        bookingRequestDTO.setAmountPeople(1);
-        bookingRequestDTO.setRestaurantId(UUID.randomUUID());
+        BookingRequestDTO bookingRequestDTO = createBookingRequestDTO(
+                reservationName,
+                reservationTime,
+                amountPeople,
+                restaurantId
+        );
 
         Mockito.when(bookingUseCase.execute(Mockito.any(BookingDomainEntity.class))).thenReturn(bookingDomainEntity);
 
+        // Act
         ResponseEntity<?> response = bookingController.booking(bookingRequestDTO);
 
+        // Assert
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
+    }
+
+    private BookingRequestDTO createBookingRequestDTO(String reservationName, LocalDateTime reservationTime, int amountPeople, UUID restaurantId) {
+        BookingRequestDTO bookingRequestDTO = new BookingRequestDTO();
+        bookingRequestDTO.setReservationName(reservationName);
+        bookingRequestDTO.setReservationTime(reservationTime);
+        bookingRequestDTO.setAmountPeople(amountPeople);
+        bookingRequestDTO.setRestaurantId(restaurantId);
+        return bookingRequestDTO;
     }
 
 }

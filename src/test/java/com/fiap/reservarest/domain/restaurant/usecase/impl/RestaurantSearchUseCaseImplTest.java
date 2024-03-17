@@ -13,6 +13,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
 
+import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
+
 @ExtendWith(MockitoExtension.class)
 class RestaurantSearchUseCaseImplTest {
 
@@ -31,20 +33,28 @@ class RestaurantSearchUseCaseImplTest {
 
     @Test
     void shouldReturnListRestaurants() {
-        final var restaurantSearchDomainEntity = new RestaurantSearchDomainEntity("restaurante");
-        final var result = restaurantSearchUseCase.execute(restaurantSearchDomainEntity);
+        // Arrange
+        RestaurantSearchDomainEntity restaurantSearchDomainEntity = new RestaurantSearchDomainEntity("restaurante");
 
-        Assertions.assertThat(result).isEmpty();
+        // Act
+        List<RestaurantDomainEntity> result = restaurantSearchUseCase.execute(restaurantSearchDomainEntity);
 
+        // Assert
+        assertThat(result).isEmpty();
     }
+
 
     @Test
     void shouldReturnListRestaurantsWhenNullKeyWord() {
-        final var restaurantSearchDomainEntity = new RestaurantSearchDomainEntity(null);
-        final var result = restaurantSearchUseCase.execute(restaurantSearchDomainEntity);
+        // Arrange
+        RestaurantSearchDomainEntity restaurantSearchDomainEntity = new RestaurantSearchDomainEntity(null);
 
-        Assertions.assertThat(result).isEmpty();
+        // Act
+        List<RestaurantDomainEntity> result = restaurantSearchUseCase.execute(restaurantSearchDomainEntity);
 
+        // Assert
+        assertThat(result).isEmpty();
     }
+
 
 }
