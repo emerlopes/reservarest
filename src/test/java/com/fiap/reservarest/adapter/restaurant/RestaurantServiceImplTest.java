@@ -4,6 +4,7 @@ import com.fiap.reservarest.adapter.restaurant.entity.RestaurantEntity;
 import com.fiap.reservarest.adapter.restaurant.repository.RestaurantRepository;
 import com.fiap.reservarest.domain.restaurant.entity.RestaurantDomainEntity;
 import com.fiap.reservarest.domain.restaurant.exception.RestaurantDomainCustomException;
+import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -29,6 +30,9 @@ class RestaurantServiceImplTest {
 
     @Mock
     private RestaurantRepository restaurantRepository;
+
+    @Mock
+    private Logger logger;
 
     private final UUID uuid = UUID.fromString("123e4567-e89b-12d3-a456-426614174000");
 
