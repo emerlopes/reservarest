@@ -5,7 +5,6 @@ import com.fiap.reservarest.adapter.restaurant.repository.RestaurantRepository;
 import com.fiap.reservarest.domain.restaurant.entity.RestaurantDomainEntity;
 import com.fiap.reservarest.domain.restaurant.exception.RestaurantDomainCustomException;
 import org.apache.logging.log4j.Logger;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -61,7 +60,7 @@ class RestaurantServiceImplTest {
         Mockito.when(restaurantRepository.save(Mockito.any(RestaurantEntity.class))).thenReturn(restaurantEntity);
 
         // Act
-        RestaurantDomainEntity result = restaurantService.createRestaurant(restaurantDomainEntity);
+        RestaurantDomainEntity result = restaurantService.saveRestaurant(restaurantDomainEntity);
 
         // Assert
         assertThat(result).isNotNull();

@@ -2,7 +2,6 @@ package com.fiap.reservarest.domain.restaurant.usecase.impl;
 
 import com.fiap.reservarest.domain.restaurant.entity.RestaurantDomainEntity;
 import com.fiap.reservarest.domain.restaurant.service.RestaurantService;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -14,7 +13,6 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 class RestaurantCreationUseCaseImplTest {
@@ -40,7 +38,7 @@ class RestaurantCreationUseCaseImplTest {
                 1
         );
 
-        Mockito.when(restaurantService.createRestaurant(restaurantDomainEntity)).thenReturn(restaurantDomainEntity);
+        Mockito.when(restaurantService.saveRestaurant(restaurantDomainEntity)).thenReturn(restaurantDomainEntity);
 
         // Act
         RestaurantDomainEntity result = restaurantCreationUseCase.execute(restaurantDomainEntity);
