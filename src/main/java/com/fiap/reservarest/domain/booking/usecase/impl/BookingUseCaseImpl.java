@@ -5,6 +5,7 @@ import com.fiap.reservarest.domain.booking.entity.BookingDomainEntity;
 import com.fiap.reservarest.domain.booking.service.BookingService;
 import com.fiap.reservarest.domain.booking.usecase.BookingUseCase;
 import com.fiap.reservarest.domain.restaurant.service.RestaurantService;
+import org.springframework.transaction.annotation.Transactional;
 
 public class BookingUseCaseImpl implements BookingUseCase {
 
@@ -20,10 +21,13 @@ public class BookingUseCaseImpl implements BookingUseCase {
     }
 
     @Override
+    @Transactional
     public BookingDomainEntity execute(BookingDomainEntity bookingDomainEntity) {
         final var restaurantExternalId = bookingDomainEntity.getRestaurantExternalId();
         final var restaurantDomainEntity = restaurantService.findByExternalId(restaurantExternalId);
         final var domainEntity = BookingMapper.toDomainEntity(bookingDomainEntity, restaurantDomainEntity);
+
+        bookingService.updateQuantityTableByPeople(domainEntity);
 
         return bookingService.booking(domainEntity);
     }

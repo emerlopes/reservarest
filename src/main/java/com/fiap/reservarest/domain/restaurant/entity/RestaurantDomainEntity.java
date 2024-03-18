@@ -1,6 +1,7 @@
 package com.fiap.reservarest.domain.restaurant.entity;
 
 import com.fiap.reservarest.domain.restaurant.exception.RestaurantDomainCustomException;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -13,6 +14,8 @@ public class RestaurantDomainEntity {
     private String location;
     private String cuisineType;
     private Double hoursOfOperation;
+
+    @Setter
     private Integer capacity;
     private LocalDateTime createAt;
 

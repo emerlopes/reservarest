@@ -30,7 +30,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-    public RestaurantDomainEntity createRestaurant(
+    public RestaurantDomainEntity saveRestaurant(
             final RestaurantDomainEntity restaurantDomainEntity
     ) {
 
@@ -89,7 +89,7 @@ public class RestaurantServiceImpl implements RestaurantService {
             for (final var restaurant : RestaurantsEnum.values()) {
 
                 RestaurantDomainEntity restaurantDomainEntity = new RestaurantDomainEntity(
-                        UUID.randomUUID(),
+                        UUID.fromString(restaurant.getExternalId()),
                         restaurant.getName().toLowerCase(Locale.ROOT),
                         restaurant.getLocation().toLowerCase(Locale.ROOT),
                         restaurant.getCuisineType().toString().toLowerCase(Locale.ROOT),

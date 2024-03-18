@@ -2,23 +2,20 @@ package com.fiap.reservarest.domain.restaurant.usecase.impl;
 
 import com.fiap.reservarest.domain.restaurant.entity.RestaurantDomainEntity;
 import com.fiap.reservarest.domain.restaurant.service.RestaurantService;
-import com.fiap.reservarest.domain.restaurant.usecase.RestaurantCreationUseCase;
+import com.fiap.reservarest.domain.restaurant.usecase.RestaurantUpdatingUseCase;
 
-public class RestaurantCreationUseCaseImpl implements RestaurantCreationUseCase {
+public class RestaurantUpdatingUseCaseImpl implements RestaurantUpdatingUseCase {
 
     private final RestaurantService restaurantService;
 
-    public RestaurantCreationUseCaseImpl(
+    public RestaurantUpdatingUseCaseImpl(
             final RestaurantService restaurantService
     ) {
         this.restaurantService = restaurantService;
     }
 
     @Override
-    public RestaurantDomainEntity execute(
-            final RestaurantDomainEntity restaurantDomainEntity
-    ) {
-
-        return restaurantService.saveRestaurant(restaurantDomainEntity);
+    public RestaurantDomainEntity execute(RestaurantDomainEntity restaurantDomainEntity) {
+        return null;
     }
 }

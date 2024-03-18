@@ -6,8 +6,11 @@ import java.util.List;
 import java.util.UUID;
 
 public interface RestaurantService {
-    RestaurantDomainEntity createRestaurant(RestaurantDomainEntity restaurantDomainEntity);
+    RestaurantDomainEntity saveRestaurant(RestaurantDomainEntity restaurantDomainEntity);
+
     List<RestaurantDomainEntity> findRestaurantByKeyWord(String name);
+
     List<RestaurantDomainEntity> findRestaurants();
+
     RestaurantDomainEntity findByExternalId(UUID externalId);
 }
