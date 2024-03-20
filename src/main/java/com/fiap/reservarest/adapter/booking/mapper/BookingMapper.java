@@ -8,6 +8,8 @@ import com.fiap.reservarest.application.shared.CustomResponse;
 import com.fiap.reservarest.domain.booking.entity.BookingDomainEntity;
 import com.fiap.reservarest.domain.restaurant.entity.RestaurantDomainEntity;
 
+import java.util.List;
+
 public class BookingMapper {
 
     public static BookingEntity toEntity(final BookingDomainEntity bookingDomainEntity) {
@@ -15,8 +17,13 @@ public class BookingMapper {
                 bookingDomainEntity.getReservationName(),
                 bookingDomainEntity.getReservationTime(),
                 RestaurantMapper.toEntity(bookingDomainEntity.getRestaurantDomainEntity()),
-                bookingDomainEntity.getAmountPeople()
+                bookingDomainEntity.getAmountPeople(),
+                bookingDomainEntity.getStatus()
         );
+    }
+
+    public static List<BookingEntity> toEntity(final List<BookingDomainEntity> entities) {
+        return entities.stream().map(BookingMapper::toEntity).toList();
     }
 
     public static BookingDomainEntity toDomainEntity(final BookingEntity bookingEntity) {
@@ -35,9 +42,12 @@ public class BookingMapper {
     ) {
         return new BookingDomainEntity(
                 bookingDomainEntity.getReservationName(),
+                bookingDomainEntity.getReservationEmail(),
+                bookingDomainEntity.getReservationPhone(),
                 bookingDomainEntity.getReservationTime(),
                 bookingDomainEntity.getAmountPeople(),
-                restaurantDomainEntity
+                restaurantDomainEntity,
+                bookingDomainEntity.getStatus()
         );
     }
 
@@ -46,9 +56,12 @@ public class BookingMapper {
     ) {
         return new BookingDomainEntity(
                 bookingRequestDTO.getReservationName(),
+                bookingRequestDTO.getReservationEmail(),
+                bookingRequestDTO.getReservationPhone(),
                 bookingRequestDTO.getReservationTime(),
                 bookingRequestDTO.getAmountPeople(),
-                bookingRequestDTO.getRestaurantId()
+                bookingRequestDTO.getRestaurantId(),
+                bookingRequestDTO.getStatus()
         );
     }
 

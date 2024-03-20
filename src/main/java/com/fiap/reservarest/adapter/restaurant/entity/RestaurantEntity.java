@@ -16,7 +16,8 @@ public class RestaurantEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "restaurant_id")
+    private Long restaurantId;
 
     @Column(name = "external_id")
     private UUID externalId;
@@ -33,7 +34,7 @@ public class RestaurantEntity {
     private LocalDateTime createAt;
 
     public RestaurantEntity(
-            final Long id,
+            final Long restaurantId,
             final UUID externalId,
             final String name,
             final String location,
@@ -42,7 +43,7 @@ public class RestaurantEntity {
             final Integer capacity,
             final LocalDateTime createAt
     ) {
-        this.id = id;
+        this.restaurantId = restaurantId;
         this.externalId = externalId;
         this.name = name;
         this.location = location;

@@ -41,9 +41,12 @@ class BookingUseCaseImplTest {
 
         BookingDomainEntity bookingDomainEntity = new BookingDomainEntity(
                 "Teste",
+                "email",
+                "phone",
                 LocalDateTime.now(),
                 2,
-                restaurantId
+                restaurantId,
+                null
         );
 
         RestaurantDomainEntity restaurantDomainEntity = new RestaurantDomainEntity();
@@ -60,5 +63,5 @@ class BookingUseCaseImplTest {
         assertEquals(bookingDomainEntity, result);
     }
 
-    
+
 }

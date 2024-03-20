@@ -20,20 +20,24 @@ public class BookingEntity {
     private LocalDateTime reservationTime;
 
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "restaurantId")
     private RestaurantEntity restaurantEntity;
 
     private Integer amountPeople;
+
+    private BookingStatusEnum status;
 
     public BookingEntity(
             final String reservationName,
             final LocalDateTime reservationTime,
             final RestaurantEntity restaurantEntity,
-            final Integer amountPeople
+            final Integer amountPeople,
+            final BookingStatusEnum status
     ) {
         this.reservationName = reservationName;
         this.reservationTime = reservationTime;
         this.restaurantEntity = restaurantEntity;
         this.amountPeople = amountPeople;
+        this.status = status;
     }
 }

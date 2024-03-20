@@ -1,6 +1,7 @@
 package com.fiap.reservarest.adapter.booking;
 
 import com.fiap.reservarest.adapter.booking.entity.BookingEntity;
+import com.fiap.reservarest.adapter.booking.entity.BookingStatusEnum;
 import com.fiap.reservarest.adapter.booking.repository.BookingRepository;
 import com.fiap.reservarest.adapter.restaurant.entity.RestaurantEntity;
 import com.fiap.reservarest.domain.booking.entity.BookingDomainEntity;
@@ -50,9 +51,12 @@ class BookingServiceImplTest {
 
         BookingDomainEntity bookingDomainEntity = new BookingDomainEntity(
                 reservationName,
+                "email",
+                "phone",
                 reservationTime,
                 numberOfPeople,
-                restaurant
+                restaurant,
+                BookingStatusEnum.PENDING
         );
 
         BookingEntity bookingEntity = new BookingEntity(
@@ -67,7 +71,8 @@ class BookingServiceImplTest {
                         restaurant.getCapacity(),
                         restaurant.getCreateAt()
                 ),
-                numberOfPeople
+                numberOfPeople,
+                BookingStatusEnum.PENDING
         );
 
         when(bookingRepository.save(any())).thenReturn(bookingEntity);

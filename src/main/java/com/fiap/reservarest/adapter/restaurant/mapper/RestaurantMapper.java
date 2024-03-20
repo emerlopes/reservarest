@@ -17,7 +17,7 @@ public class RestaurantMapper {
             final RestaurantEntity restaurantEntity
     ) {
         return new RestaurantDomainEntity(
-                restaurantEntity.getId(),
+                restaurantEntity.getRestaurantId(),
                 restaurantEntity.getExternalId(),
                 restaurantEntity.getName(),
                 restaurantEntity.getLocation(),
