@@ -4,6 +4,7 @@ import com.fiap.reservarest.adapter.reservation.entity.ReservationStatusEnum;
 import com.fiap.reservarest.adapter.reservation.mapper.ReservationMapper;
 import com.fiap.reservarest.adapter.reservation.repository.ReservationRepository;
 import com.fiap.reservarest.domain.reservation.entity.ReservationDomainEntity;
+import com.fiap.reservarest.domain.reservation.entity.ReservationSearchByIdDomainEntity;
 import com.fiap.reservarest.domain.reservation.exception.ReservationDomainCustomException;
 import com.fiap.reservarest.domain.reservation.service.ReservationService;
 import com.fiap.reservarest.domain.restaurant.service.RestaurantService;
@@ -42,6 +43,12 @@ public class ReservationServiceImpl implements ReservationService {
         final var savedEntity = reservationRepository.save(entity);
 
         return ReservationMapper.toDomainEntity(savedEntity);
+    }
+
+    @Override
+    public ReservationDomainEntity findReservationById(ReservationSearchByIdDomainEntity reservationSearchByIdDomainEntity) {
+        final var entity = reservationRepository.findById(reservationSearchByIdDomainEntity.getReservationId());
+        return ReservationMapper.toDomainEntity(entity.orElseThrow(() -> new ReservationDomainCustomException("Reservation not found")));
     }
 
     @Override
