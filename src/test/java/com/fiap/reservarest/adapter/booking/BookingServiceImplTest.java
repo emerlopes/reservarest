@@ -61,6 +61,8 @@ class BookingServiceImplTest {
 
         BookingEntity bookingEntity = new BookingEntity(
                 reservationName,
+                "email",
+                "phone",
                 reservationTime,
                 new RestaurantEntity(
                         restaurant.getExternalId(),

@@ -17,6 +17,8 @@ public class BookingEntity {
     private Long reservationId;
 
     private String reservationName;
+    private String reservationEmail;
+    private String reservationPhone;
     private LocalDateTime reservationTime;
 
     @ManyToOne
@@ -29,12 +31,16 @@ public class BookingEntity {
 
     public BookingEntity(
             final String reservationName,
+            final String reservationEmail,
+            final String reservationPhone,
             final LocalDateTime reservationTime,
             final RestaurantEntity restaurantEntity,
             final Integer amountPeople,
             final BookingStatusEnum status
     ) {
         this.reservationName = reservationName;
+        this.reservationEmail = reservationEmail;
+        this.reservationPhone = reservationPhone;
         this.reservationTime = reservationTime;
         this.restaurantEntity = restaurantEntity;
         this.amountPeople = amountPeople;

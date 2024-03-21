@@ -1,6 +1,7 @@
 package com.fiap.reservarest.adapter.booking.mapper;
 
 import com.fiap.reservarest.adapter.booking.entity.BookingEntity;
+import com.fiap.reservarest.adapter.booking.entity.BookingStatusEnum;
 import com.fiap.reservarest.adapter.restaurant.mapper.RestaurantMapper;
 import com.fiap.reservarest.application.entrypoint.rest.booking.dto.BookingRequestDTO;
 import com.fiap.reservarest.application.entrypoint.rest.booking.dto.BookingResponseDTO;
@@ -8,6 +9,7 @@ import com.fiap.reservarest.application.shared.CustomResponse;
 import com.fiap.reservarest.domain.booking.entity.BookingDomainEntity;
 import com.fiap.reservarest.domain.restaurant.entity.RestaurantDomainEntity;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class BookingMapper {
@@ -15,6 +17,8 @@ public class BookingMapper {
     public static BookingEntity toEntity(final BookingDomainEntity bookingDomainEntity) {
         return new BookingEntity(
                 bookingDomainEntity.getReservationName(),
+                bookingDomainEntity.getReservationEmail(),
+                bookingDomainEntity.getReservationPhone(),
                 bookingDomainEntity.getReservationTime(),
                 RestaurantMapper.toEntity(bookingDomainEntity.getRestaurantDomainEntity()),
                 bookingDomainEntity.getAmountPeople(),
@@ -30,9 +34,12 @@ public class BookingMapper {
         return new BookingDomainEntity(
                 bookingEntity.getReservationId(),
                 bookingEntity.getReservationName(),
+                bookingEntity.getReservationEmail(),
+                bookingEntity.getReservationPhone(),
                 bookingEntity.getReservationTime(),
                 bookingEntity.getAmountPeople(),
-                RestaurantMapper.toDomainEntity(bookingEntity.getRestaurantEntity())
+                RestaurantMapper.toDomainEntity(bookingEntity.getRestaurantEntity()),
+                bookingEntity.getStatus()
         );
     }
 
@@ -71,10 +78,12 @@ public class BookingMapper {
         final var response = new BookingResponseDTO(
                 bookingDomainEntity.getBookingId(),
                 bookingDomainEntity.getReservationName(),
+                bookingDomainEntity.getReservationEmail(),
+                bookingDomainEntity.getReservationPhone(),
                 bookingDomainEntity.getReservationTime(),
                 bookingDomainEntity.getAmountPeople(),
-                RestaurantMapper.toResponse(bookingDomainEntity.getRestaurantDomainEntity()
-                )
+                RestaurantMapper.toResponse(bookingDomainEntity.getRestaurantDomainEntity()),
+                bookingDomainEntity.getStatus()
         );
 
         return new CustomResponse<BookingResponseDTO>().setData(response);

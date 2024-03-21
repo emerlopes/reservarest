@@ -58,15 +58,21 @@ public class BookingDomainEntity {
     public BookingDomainEntity(
             final Long bookingId,
             final String reservationName,
+            final String reservationEmail,
+            final String reservationPhone,
             final LocalDateTime reservationTime,
             final Integer amountPeople,
-            final RestaurantDomainEntity restaurantDomainEntity
+            final RestaurantDomainEntity restaurantDomainEntity,
+            final BookingStatusEnum status
     ) {
         this.bookingId = bookingId;
         this.reservationName = reservationName;
+        this.reservationEmail = reservationEmail;
+        this.reservationPhone = reservationPhone;
         this.reservationTime = reservationTime;
         this.amountPeople = amountPeople;
         this.restaurantDomainEntity = restaurantDomainEntity;
+        this.status = status;
     }
 
     public Long getBookingId() {
