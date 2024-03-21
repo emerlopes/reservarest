@@ -28,6 +28,10 @@ public class ReservationMapper {
         return entities.stream().map(ReservationMapper::toEntity).toList();
     }
 
+    public static List<ReservationDomainEntity> toDomainEntity(final List<ReservationEntity> entities) {
+        return entities.stream().map(ReservationMapper::toDomainEntity).toList();
+    }
+
     public static ReservationDomainEntity toDomainEntity(final ReservationEntity reservationEntity) {
         return new ReservationDomainEntity(
                 reservationEntity.getReservationId(),
@@ -70,10 +74,10 @@ public class ReservationMapper {
         );
     }
 
-    public static CustomResponse<BookingResponseDTO> toResponseDTO(
+    public static BookingResponseDTO toResponseDTO(
             final ReservationDomainEntity reservationDomainEntity
     ) {
-        final var response = new BookingResponseDTO(
+        return new BookingResponseDTO(
                 reservationDomainEntity.getReservationId(),
                 reservationDomainEntity.getReservationName(),
                 reservationDomainEntity.getReservationEmail(),
@@ -83,7 +87,11 @@ public class ReservationMapper {
                 RestaurantMapper.toResponse(reservationDomainEntity.getRestaurantDomainEntity()),
                 reservationDomainEntity.getStatus()
         );
+    }
 
-        return new CustomResponse<BookingResponseDTO>().setData(response);
+    public static List<BookingResponseDTO> toResponseDTO(
+            final List<ReservationDomainEntity> reservationDomainEntity
+    ) {
+        return reservationDomainEntity.stream().map(ReservationMapper::toResponseDTO).toList();
     }
 }

@@ -45,6 +45,12 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
+    public List<ReservationDomainEntity> findReservationByRestaurantId(Long restaurantId) {
+        final var entities = reservationRepository.findByRestaurantEntityRestaurantId(restaurantId);
+        return ReservationMapper.toDomainEntity(entities);
+    }
+
+    @Override
     public void updateQuantityTableByPeople(ReservationDomainEntity reservationDomainEntity) {
 
         logger.info("Updating quantity table by people");

@@ -46,8 +46,11 @@ public class BookingResponseDTO {
     ) {
         this.reservationId = reservationId;
         this.reservationName = reservationName;
+        this.reservationEmail = reservationEmail;
+        this.reservationPhone = reservationPhone;
         this.reservationTime = reservationTime;
         this.amountPeople = amountPeople;
         this.restaurantResponseDTO = restaurantResponseDTO;
+        this.status = status;
     }
 }
