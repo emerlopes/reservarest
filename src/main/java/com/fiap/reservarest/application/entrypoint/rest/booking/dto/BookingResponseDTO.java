@@ -1,7 +1,7 @@
 package com.fiap.reservarest.application.entrypoint.rest.booking.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fiap.reservarest.adapter.booking.entity.BookingStatusEnum;
+import com.fiap.reservarest.adapter.reservation.entity.ReservationStatusEnum;
 import com.fiap.reservarest.application.entrypoint.rest.restaurant.dto.RestaurantResponseDTO;
 import lombok.Data;
 
@@ -32,7 +32,7 @@ public class BookingResponseDTO {
     private RestaurantResponseDTO restaurantResponseDTO;
 
     @JsonProperty("status")
-    private BookingStatusEnum status;
+    private ReservationStatusEnum status;
 
     public BookingResponseDTO(
             final Long reservationId,
@@ -42,7 +42,7 @@ public class BookingResponseDTO {
             final LocalDateTime reservationTime,
             final Integer amountPeople,
             final RestaurantResponseDTO restaurantResponseDTO,
-            final BookingStatusEnum status
+            final ReservationStatusEnum status
     ) {
         this.reservationId = reservationId;
         this.reservationName = reservationName;

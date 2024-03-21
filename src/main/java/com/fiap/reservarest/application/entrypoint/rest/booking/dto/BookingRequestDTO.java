@@ -1,7 +1,7 @@
 package com.fiap.reservarest.application.entrypoint.rest.booking.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fiap.reservarest.adapter.booking.entity.BookingStatusEnum;
+import com.fiap.reservarest.adapter.reservation.entity.ReservationStatusEnum;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -29,6 +29,6 @@ public class BookingRequestDTO {
     private UUID restaurantId;
 
     @JsonProperty("status")
-    private BookingStatusEnum status;
+    private ReservationStatusEnum status;
 
 }

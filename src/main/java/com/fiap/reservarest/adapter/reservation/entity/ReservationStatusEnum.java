@@ -1,6 +1,6 @@
-package com.fiap.reservarest.adapter.booking.entity;
+package com.fiap.reservarest.adapter.reservation.entity;
 
-public enum BookingStatusEnum {
+public enum ReservationStatusEnum {
 
     PENDING,
     CONFIRMED,
@@ -8,7 +8,7 @@ public enum BookingStatusEnum {
 
     private String status;
 
-    BookingStatusEnum() {
+    ReservationStatusEnum() {
     }
 
     public String getStatus() {

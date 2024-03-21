@@ -1,15 +1,15 @@
-package com.fiap.reservarest.domain.booking.entity;
+package com.fiap.reservarest.domain.reservation.entity;
 
-import com.fiap.reservarest.adapter.booking.entity.BookingStatusEnum;
-import com.fiap.reservarest.domain.booking.exception.BookingDomainCustomException;
+import com.fiap.reservarest.adapter.reservation.entity.ReservationStatusEnum;
+import com.fiap.reservarest.domain.reservation.exception.ReservationDomainCustomException;
 import com.fiap.reservarest.domain.restaurant.entity.RestaurantDomainEntity;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-public class BookingDomainEntity {
+public class ReservationDomainEntity {
 
-    private Long bookingId;
+    private Long reservationId;
     private String reservationName;
     private String reservationEmail;
     private String reservationPhone;
@@ -17,16 +17,16 @@ public class BookingDomainEntity {
     private Integer amountPeople;
     private UUID restaurantExternalId;
     private RestaurantDomainEntity restaurantDomainEntity;
-    private BookingStatusEnum status;
+    private ReservationStatusEnum status;
 
-    public BookingDomainEntity(
+    public ReservationDomainEntity(
             final String reservationName,
             final String reservationEmail,
             final String reservationPhone,
             final LocalDateTime reservationTime,
             final Integer amountPeople,
             final UUID restaurantExternalId,
-            final BookingStatusEnum status
+            final ReservationStatusEnum status
     ) {
         this.reservationName = reservationName;
         this.reservationEmail = reservationEmail;
@@ -37,14 +37,14 @@ public class BookingDomainEntity {
         this.status = status;
     }
 
-    public BookingDomainEntity(
+    public ReservationDomainEntity(
             final String reservationName,
             final String reservationEmail,
             final String reservationPhone,
             final LocalDateTime reservationTime,
             final Integer amountPeople,
             final RestaurantDomainEntity restaurantDomainEntity,
-            final BookingStatusEnum status
+            final ReservationStatusEnum status
     ) {
         this.reservationName = reservationName;
         this.reservationEmail = reservationEmail;
@@ -55,17 +55,17 @@ public class BookingDomainEntity {
         this.status = status;
     }
 
-    public BookingDomainEntity(
-            final Long bookingId,
+    public ReservationDomainEntity(
+            final Long reservationId,
             final String reservationName,
             final String reservationEmail,
             final String reservationPhone,
             final LocalDateTime reservationTime,
             final Integer amountPeople,
             final RestaurantDomainEntity restaurantDomainEntity,
-            final BookingStatusEnum status
+            final ReservationStatusEnum status
     ) {
-        this.bookingId = bookingId;
+        this.reservationId = reservationId;
         this.reservationName = reservationName;
         this.reservationEmail = reservationEmail;
         this.reservationPhone = reservationPhone;
@@ -75,8 +75,8 @@ public class BookingDomainEntity {
         this.status = status;
     }
 
-    public Long getBookingId() {
-        return bookingId;
+    public Long getReservationId() {
+        return reservationId;
     }
 
     public String getReservationName() {
@@ -107,13 +107,13 @@ public class BookingDomainEntity {
         return restaurantDomainEntity;
     }
 
-    public BookingStatusEnum getStatus() {
+    public ReservationStatusEnum getStatus() {
         return status;
     }
 
     private void validateReservationTable() {
         if (this.amountPeople > 4) {
-            throw new BookingDomainCustomException("Restaurant has no tables available for the amount of people");
+            throw new ReservationDomainCustomException("Restaurant has no tables available for the amount of people");
         }
     }
 

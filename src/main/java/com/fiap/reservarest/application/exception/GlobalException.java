@@ -1,6 +1,6 @@
 package com.fiap.reservarest.application.exception;
 
-import com.fiap.reservarest.domain.booking.exception.BookingDomainCustomException;
+import com.fiap.reservarest.domain.reservation.exception.ReservationDomainCustomException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -23,7 +23,7 @@ public class GlobalException {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
     }
 
-    @ExceptionHandler(BookingDomainCustomException.class)
+    @ExceptionHandler(ReservationDomainCustomException.class)
     public ResponseEntity<?> handleExceptionBookingTable() {
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", LocalDateTime.now());

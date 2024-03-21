@@ -1,4 +1,4 @@
-package com.fiap.reservarest.adapter.booking.entity;
+package com.fiap.reservarest.adapter.reservation.entity;
 
 import com.fiap.reservarest.adapter.restaurant.entity.RestaurantEntity;
 import jakarta.persistence.*;
@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @Getter
 @Entity
 @NoArgsConstructor
-public class BookingEntity {
+public class ReservationEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,16 +27,16 @@ public class BookingEntity {
 
     private Integer amountPeople;
 
-    private BookingStatusEnum status;
+    private ReservationStatusEnum status;
 
-    public BookingEntity(
+    public ReservationEntity(
             final String reservationName,
             final String reservationEmail,
             final String reservationPhone,
             final LocalDateTime reservationTime,
             final RestaurantEntity restaurantEntity,
             final Integer amountPeople,
-            final BookingStatusEnum status
+            final ReservationStatusEnum status
     ) {
         this.reservationName = reservationName;
         this.reservationEmail = reservationEmail;

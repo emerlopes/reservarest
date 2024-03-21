@@ -1,12 +1,11 @@
-package com.fiap.reservarest.adapter.booking;
+package com.fiap.reservarest.adapter.reservation;
 
-import com.fiap.reservarest.adapter.booking.entity.BookingEntity;
-import com.fiap.reservarest.adapter.booking.entity.BookingStatusEnum;
-import com.fiap.reservarest.adapter.booking.repository.BookingRepository;
+import com.fiap.reservarest.adapter.reservation.entity.ReservationEntity;
+import com.fiap.reservarest.adapter.reservation.entity.ReservationStatusEnum;
+import com.fiap.reservarest.adapter.reservation.repository.ReservationRepository;
 import com.fiap.reservarest.adapter.restaurant.entity.RestaurantEntity;
-import com.fiap.reservarest.domain.booking.entity.BookingDomainEntity;
+import com.fiap.reservarest.domain.reservation.entity.ReservationDomainEntity;
 import com.fiap.reservarest.domain.restaurant.entity.RestaurantDomainEntity;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -19,13 +18,13 @@ import java.util.UUID;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.*;
 
-class BookingServiceImplTest {
+class ReservationServiceImplTest {
 
     @InjectMocks
-    private BookingServiceImpl bookingService;
+    private ReservationServiceImpl bookingService;
 
     @Mock
-    private BookingRepository bookingRepository;
+    private ReservationRepository reservationRepository;
 
     @BeforeEach
     void setUp() {
@@ -49,17 +48,17 @@ class BookingServiceImplTest {
                 LocalDateTime.now()
         );
 
-        BookingDomainEntity bookingDomainEntity = new BookingDomainEntity(
+        ReservationDomainEntity reservationDomainEntity = new ReservationDomainEntity(
                 reservationName,
                 "email",
                 "phone",
                 reservationTime,
                 numberOfPeople,
                 restaurant,
-                BookingStatusEnum.PENDING
+                ReservationStatusEnum.PENDING
         );
 
-        BookingEntity bookingEntity = new BookingEntity(
+        ReservationEntity reservationEntity = new ReservationEntity(
                 reservationName,
                 "email",
                 "phone",
@@ -74,16 +73,16 @@ class BookingServiceImplTest {
                         restaurant.getCreateAt()
                 ),
                 numberOfPeople,
-                BookingStatusEnum.PENDING
+                ReservationStatusEnum.PENDING
         );
 
-        when(bookingRepository.save(any())).thenReturn(bookingEntity);
+        when(reservationRepository.save(any())).thenReturn(reservationEntity);
 
         // Act
-        BookingDomainEntity result = bookingService.booking(bookingDomainEntity);
+        ReservationDomainEntity result = bookingService.reservation(reservationDomainEntity);
 
         // Assert
-        verify(bookingRepository, times(1)).save(any());
+        verify(reservationRepository, times(1)).save(any());
         assertThat(result).isNotNull();
     }
 }

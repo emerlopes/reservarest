@@ -1,8 +1,8 @@
 package com.fiap.reservarest.application.bean;
 
-import com.fiap.reservarest.domain.booking.service.BookingService;
-import com.fiap.reservarest.domain.booking.usecase.BookingUseCase;
-import com.fiap.reservarest.domain.booking.usecase.impl.BookingUseCaseImpl;
+import com.fiap.reservarest.domain.reservation.service.ReservationService;
+import com.fiap.reservarest.domain.reservation.usecase.ReservationUseCase;
+import com.fiap.reservarest.domain.reservation.usecase.impl.ReservationUseCaseImpl;
 import com.fiap.reservarest.domain.rating.service.RatingService;
 import com.fiap.reservarest.domain.rating.usecase.RatingCreationUseCase;
 import com.fiap.reservarest.domain.rating.usecase.impl.RatingCreationUseCaseImpl;
@@ -33,11 +33,11 @@ public class DependencyInjection {
     }
 
     @Bean
-    public BookingUseCase bookingUseCaseInstance(
-            final BookingService bookingService,
+    public ReservationUseCase bookingUseCaseInstance(
+            final ReservationService reservationService,
             final RestaurantService restaurantService
     ) {
-        return new BookingUseCaseImpl(bookingService, restaurantService);
+        return new ReservationUseCaseImpl(reservationService, restaurantService);
     }
 
     @Bean

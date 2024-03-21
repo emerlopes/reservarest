@@ -1,72 +1,68 @@
-package com.fiap.reservarest.adapter.booking;
+package com.fiap.reservarest.adapter.reservation;
 
-import com.fiap.reservarest.adapter.booking.entity.BookingStatusEnum;
-import com.fiap.reservarest.adapter.booking.mapper.BookingMapper;
-import com.fiap.reservarest.adapter.booking.repository.BookingRepository;
-import com.fiap.reservarest.adapter.rating.mapper.RatingMapper;
-import com.fiap.reservarest.domain.booking.entity.BookingDomainEntity;
-import com.fiap.reservarest.domain.booking.exception.BookingDomainCustomException;
-import com.fiap.reservarest.domain.booking.service.BookingService;
-import com.fiap.reservarest.domain.rating.entity.RatingDomainEntity;
+import com.fiap.reservarest.adapter.reservation.entity.ReservationStatusEnum;
+import com.fiap.reservarest.adapter.reservation.mapper.ReservationMapper;
+import com.fiap.reservarest.adapter.reservation.repository.ReservationRepository;
+import com.fiap.reservarest.domain.reservation.entity.ReservationDomainEntity;
+import com.fiap.reservarest.domain.reservation.exception.ReservationDomainCustomException;
+import com.fiap.reservarest.domain.reservation.service.ReservationService;
 import com.fiap.reservarest.domain.restaurant.service.RestaurantService;
 import jakarta.annotation.PostConstruct;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
 @Service
-public class BookingServiceImpl implements BookingService {
+public class ReservationServiceImpl implements ReservationService {
 
     private final Logger logger;
 
-    private final BookingRepository bookingRepository;
+    private final ReservationRepository reservationRepository;
     private final RestaurantService restaurantService;
 
     private final int QUANTITY_PEOPLE_PER_TABLE = 4;
 
 
-    public BookingServiceImpl(
+    public ReservationServiceImpl(
             final Logger logger,
-            final BookingRepository bookingRepository,
+            final ReservationRepository reservationRepository,
             final RestaurantService restaurantService
     ) {
         this.logger = logger;
-        this.bookingRepository = bookingRepository;
+        this.reservationRepository = reservationRepository;
         this.restaurantService = restaurantService;
     }
 
     @Override
-    public BookingDomainEntity booking(BookingDomainEntity bookingDomainEntity) {
-        final var entity = BookingMapper.toEntity(bookingDomainEntity);
-        final var savedEntity = bookingRepository.save(entity);
+    public ReservationDomainEntity reservation(ReservationDomainEntity reservationDomainEntity) {
+        final var entity = ReservationMapper.toEntity(reservationDomainEntity);
+        final var savedEntity = reservationRepository.save(entity);
 
-        return BookingMapper.toDomainEntity(savedEntity);
+        return ReservationMapper.toDomainEntity(savedEntity);
     }
 
     @Override
-    public void updateQuantityTableByPeople(BookingDomainEntity bookingDomainEntity) {
+    public void updateQuantityTableByPeople(ReservationDomainEntity reservationDomainEntity) {
 
         logger.info("Updating quantity table by people");
 
-        final var amountPeople = bookingDomainEntity.getAmountPeople();
-        final var quantityTable = bookingDomainEntity.getRestaurantDomainEntity().getCapacity();
+        final var amountPeople = reservationDomainEntity.getAmountPeople();
+        final var quantityTable = reservationDomainEntity.getRestaurantDomainEntity().getCapacity();
         final var aviableTables = calculateTableByPeople(amountPeople, quantityTable);
 
         logger.info("Aviable tables: {}", aviableTables);
 
         if (aviableTables < 0) {
             logger.error("There are no tables available for this amount of people: {}", amountPeople);
-            throw new BookingDomainCustomException("There are no tables available for this amount of people");
+            throw new ReservationDomainCustomException("There are no tables available for this amount of people");
         }
 
-        bookingDomainEntity.getRestaurantDomainEntity().setCapacity(aviableTables);
+        reservationDomainEntity.getRestaurantDomainEntity().setCapacity(aviableTables);
 
-        restaurantService.saveRestaurant(bookingDomainEntity.getRestaurantDomainEntity());
+        restaurantService.saveRestaurant(reservationDomainEntity.getRestaurantDomainEntity());
     }
 
     private Integer calculateTableByPeople(Integer amountPeople, int quantityTable) {
@@ -79,7 +75,7 @@ public class BookingServiceImpl implements BookingService {
     public void init() {
         logger.info("BookingServiceImpl started");
 
-        if (bookingRepository.count() == 0) {
+        if (reservationRepository.count() == 0) {
             logger.info("Creating default bookings");
 
             final var RestauranteNonna = restaurantService.findByExternalId(UUID.fromString("6ed285bb-f2f6-4bfa-a1bf-837ebd8019f5"));
@@ -89,98 +85,98 @@ public class BookingServiceImpl implements BookingService {
             final var RestauranteTajMahal = restaurantService.findByExternalId(UUID.fromString("48d87425-79b4-436e-9eb6-9c2e3b96c855"));
             final var RestauranteComidaDaVovo = restaurantService.findByExternalId(UUID.fromString("09e849a2-c62b-4dfe-837c-0283588a1e01"));
 
-            final var booking1 = new BookingDomainEntity(
+            final var booking1 = new ReservationDomainEntity(
                     "John Doe",
                     "email",
                     "phone",
                     LocalDateTime.now().plusDays(1),
                     4,
                     RestauranteNonna,
-                    BookingStatusEnum.CONFIRMED
+                    ReservationStatusEnum.CONFIRMED
             );
 
-            final var booking11 = new BookingDomainEntity(
+            final var booking11 = new ReservationDomainEntity(
                     "John Doe",
                     "email",
                     "phone",
                     LocalDateTime.now().plusDays(1),
                     4,
                     RestauranteNonna,
-                    BookingStatusEnum.CONFIRMED
+                    ReservationStatusEnum.CONFIRMED
             );
 
-            final var booking2 = new BookingDomainEntity(
+            final var booking2 = new ReservationDomainEntity(
                     "Karl Doe",
                     "email",
                     "phone",
                     LocalDateTime.now().plusDays(1),
                     2,
                     RestauranteSushiExpress,
-                    BookingStatusEnum.CONFIRMED
+                    ReservationStatusEnum.CONFIRMED
             );
 
-            final var booking22 = new BookingDomainEntity(
+            final var booking22 = new ReservationDomainEntity(
                     "Karl Doe",
                     "email",
                     "phone",
                     LocalDateTime.now().plusDays(1),
                     2,
                     RestauranteSushiExpress,
-                    BookingStatusEnum.CONFIRMED
+                    ReservationStatusEnum.CONFIRMED
             );
 
-            final var booking3 = new BookingDomainEntity(
+            final var booking3 = new ReservationDomainEntity(
                     "Zack Doe",
                     "email",
                     "phone",
                     LocalDateTime.now().plusDays(2),
                     4,
                     RestauranteTaqueriaDelSol,
-                    BookingStatusEnum.CONFIRMED
+                    ReservationStatusEnum.CONFIRMED
             );
 
-            final var booking33 = new BookingDomainEntity(
+            final var booking33 = new ReservationDomainEntity(
                     "Zack Doe",
                     "email",
                     "phone",
                     LocalDateTime.now().plusDays(2),
                     4,
                     RestauranteTaqueriaDelSol,
-                    BookingStatusEnum.CONFIRMED
+                    ReservationStatusEnum.CONFIRMED
             );
 
-            final var booking4 = new BookingDomainEntity(
+            final var booking4 = new ReservationDomainEntity(
                     "Frank Doe",
                     "email",
                     "phone",
                     LocalDateTime.now().plusDays(2),
                     2,
                     RestauranteBurgerHaven,
-                    BookingStatusEnum.CONFIRMED
+                    ReservationStatusEnum.CONFIRMED
             );
 
-            final var booking5 = new BookingDomainEntity(
+            final var booking5 = new ReservationDomainEntity(
                     "Jack Doe",
                     "email",
                     "phone",
                     LocalDateTime.now().plusDays(3),
                     4,
                     RestauranteTajMahal,
-                    BookingStatusEnum.CONFIRMED
+                    ReservationStatusEnum.CONFIRMED
             );
 
-            final var booking6 = new BookingDomainEntity(
+            final var booking6 = new ReservationDomainEntity(
                     "Yuri Doe",
                     "email",
                     "phone",
                     LocalDateTime.now().plusDays(3),
                     2,
                     RestauranteComidaDaVovo,
-                    BookingStatusEnum.CONFIRMED
+                    ReservationStatusEnum.CONFIRMED
             );
 
-            bookingRepository.saveAll(
-                    BookingMapper.toEntity(
+            reservationRepository.saveAll(
+                    ReservationMapper.toEntity(
                             List.of(
                                     booking1, booking11, booking2, booking22, booking3, booking33, booking4, booking5, booking6
                             )

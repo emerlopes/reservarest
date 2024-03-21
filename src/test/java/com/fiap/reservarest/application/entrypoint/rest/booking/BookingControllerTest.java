@@ -1,8 +1,8 @@
 package com.fiap.reservarest.application.entrypoint.rest.booking;
 
 import com.fiap.reservarest.application.entrypoint.rest.booking.dto.BookingRequestDTO;
-import com.fiap.reservarest.domain.booking.entity.BookingDomainEntity;
-import com.fiap.reservarest.domain.booking.usecase.BookingUseCase;
+import com.fiap.reservarest.domain.reservation.entity.ReservationDomainEntity;
+import com.fiap.reservarest.domain.reservation.usecase.ReservationUseCase;
 import com.fiap.reservarest.domain.restaurant.entity.RestaurantDomainEntity;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,7 +25,7 @@ class BookingControllerTest {
     private BookingController bookingController;
 
     @Mock
-    private BookingUseCase bookingUseCase;
+    private ReservationUseCase reservationUseCase;
 
 
     @Test
@@ -36,12 +36,15 @@ class BookingControllerTest {
         String reservationName = "reservationName";
         int amountPeople = 1;
 
-        BookingDomainEntity bookingDomainEntity = new BookingDomainEntity(
+        ReservationDomainEntity reservationDomainEntity = new ReservationDomainEntity(
                 1L,
                 reservationName,
+                null,
+                null,
                 reservationTime,
                 null,
-                new RestaurantDomainEntity()
+                new RestaurantDomainEntity(),
+                null
         );
 
         BookingRequestDTO bookingRequestDTO = createBookingRequestDTO(
@@ -51,7 +54,7 @@ class BookingControllerTest {
                 restaurantId
         );
 
-        Mockito.when(bookingUseCase.execute(Mockito.any(BookingDomainEntity.class))).thenReturn(bookingDomainEntity);
+        Mockito.when(reservationUseCase.execute(Mockito.any(ReservationDomainEntity.class))).thenReturn(reservationDomainEntity);
 
         // Act
         ResponseEntity<?> response = bookingController.booking(bookingRequestDTO);
