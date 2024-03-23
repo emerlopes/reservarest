@@ -3,7 +3,6 @@ package com.fiap.reservarest.adapter.restaurant.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.Locale;
@@ -30,7 +29,7 @@ public class RestaurantEntity {
     @Column(name = "hours_of_operation")
     private Double hoursOfOperation;
 
-    private Integer capacity;
+    private Integer tables;
     private LocalDateTime createAt;
 
     public RestaurantEntity(
@@ -40,7 +39,7 @@ public class RestaurantEntity {
             final String location,
             final String cuisineType,
             final Double hoursOfOperation,
-            final Integer capacity,
+            final Integer tables,
             final LocalDateTime createAt
     ) {
         this.restaurantId = restaurantId;
@@ -49,7 +48,7 @@ public class RestaurantEntity {
         this.location = location;
         this.cuisineType = cuisineType;
         this.hoursOfOperation = hoursOfOperation;
-        this.capacity = capacity;
+        this.tables = tables;
         this.createAt = createAt;
     }
 
@@ -59,7 +58,7 @@ public class RestaurantEntity {
             final String location,
             final String cuisineType,
             final Double hoursOfOperation,
-            final Integer capacity,
+            final Integer tables,
             final LocalDateTime createAt
     ) {
         this.externalId = externalId;
@@ -67,7 +66,7 @@ public class RestaurantEntity {
         this.location = location.toLowerCase();
         this.cuisineType = cuisineType.toLowerCase(Locale.ROOT);
         this.hoursOfOperation = hoursOfOperation;
-        this.capacity = capacity;
+        this.tables = tables;
         this.createAt = createAt;
     }
 
@@ -80,7 +79,7 @@ public class RestaurantEntity {
                 ", location:'" + location + '\'' +
                 ", cuisine_type:'" + cuisineType + '\'' +
                 ", hours_of_operation:" + hoursOfOperation +
-                ", capacity:" + capacity +
+                ", tables:" + tables +
                 ", create_at:" + createAt +
                 '}';
     }

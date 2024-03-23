@@ -23,7 +23,7 @@ public class RestaurantMapper {
                 restaurantEntity.getLocation(),
                 restaurantEntity.getCuisineType(),
                 restaurantEntity.getHoursOfOperation(),
-                restaurantEntity.getCapacity(),
+                restaurantEntity.getTables(),
                 restaurantEntity.getCreateAt()
         );
     }
@@ -39,7 +39,7 @@ public class RestaurantMapper {
                         restaurantEntity.getLocation(),
                         restaurantEntity.getCuisineType(),
                         restaurantEntity.getHoursOfOperation(),
-                        restaurantEntity.getCapacity(),
+                        restaurantEntity.getTables(),
                         restaurantEntity.getCreateAt()
                 ))
                 .toList();
@@ -54,7 +54,7 @@ public class RestaurantMapper {
                 restaurantRequestDTO.location(),
                 restaurantRequestDTO.cuisineType(),
                 restaurantRequestDTO.hoursOfOperation(),
-                restaurantRequestDTO.capacity(),
+                restaurantRequestDTO.tables(),
                 LocalDateTime.now()
         );
     }
@@ -69,7 +69,7 @@ public class RestaurantMapper {
                 restaurantDomainEntity.getLocation(),
                 restaurantDomainEntity.getCuisineType(),
                 restaurantDomainEntity.getHoursOfOperation(),
-                restaurantDomainEntity.getCapacity(),
+                restaurantDomainEntity.getTables(),
                 restaurantDomainEntity.getCreateAt()
         );
     }
@@ -91,7 +91,7 @@ public class RestaurantMapper {
                 restaurantDomainEntity.getLocation(),
                 restaurantDomainEntity.getCuisineType(),
                 restaurantDomainEntity.getHoursOfOperation(),
-                restaurantDomainEntity.getCapacity(),
+                restaurantDomainEntity.getTables(),
                 restaurantDomainEntity.getCreateAt()
         );
 
@@ -107,7 +107,7 @@ public class RestaurantMapper {
                 restaurantDomainEntity.getLocation(),
                 restaurantDomainEntity.getCuisineType(),
                 restaurantDomainEntity.getHoursOfOperation(),
-                restaurantDomainEntity.getCapacity(),
+                restaurantDomainEntity.getTables(),
                 restaurantDomainEntity.getCreateAt()
         )).toList();
 
@@ -123,7 +123,7 @@ public class RestaurantMapper {
                 restaurantDomainEntity.getLocation(),
                 restaurantDomainEntity.getCuisineType(),
                 restaurantDomainEntity.getHoursOfOperation(),
-                restaurantDomainEntity.getCapacity(),
+                restaurantDomainEntity.getTables(),
                 restaurantDomainEntity.getCreateAt()
         );
 

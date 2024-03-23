@@ -18,7 +18,7 @@ public record RestaurantResponseDTO(
         @JsonProperty("hours_of_operation")
         Double hoursOfOperation,
 
-        Integer capacity,
+        Integer tables,
 
         @JsonProperty("create_at")
         LocalDateTime createAt

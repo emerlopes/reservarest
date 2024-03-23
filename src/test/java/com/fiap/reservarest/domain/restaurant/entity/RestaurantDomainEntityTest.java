@@ -43,7 +43,7 @@ class RestaurantDomainEntityTest {
                 .hasFieldOrPropertyWithValue("location", location)
                 .hasFieldOrPropertyWithValue("cuisineType", cuisineType)
                 .hasFieldOrPropertyWithValue("hoursOfOperation", hoursOfOperation)
-                .hasFieldOrPropertyWithValue("capacity", capacity);
+                .hasFieldOrPropertyWithValue("tables", capacity);
     }
 
     @Test

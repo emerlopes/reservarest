@@ -26,7 +26,7 @@ class RestaurantEntityTest {
         assertNull(restaurantEntity.getLocation());
         assertNull(restaurantEntity.getCuisineType());
         assertNull(restaurantEntity.getHoursOfOperation());
-        assertNull(restaurantEntity.getCapacity());
+        assertNull(restaurantEntity.getTables());
         assertNull(restaurantEntity.getCreateAt());
     }
 
@@ -47,7 +47,7 @@ class RestaurantEntityTest {
         assertEquals(location.toLowerCase(), restaurantEntity.getLocation());
         assertEquals(cuisineType.toLowerCase(), restaurantEntity.getCuisineType());
         assertEquals(hoursOfOperation, restaurantEntity.getHoursOfOperation());
-        assertEquals(capacity, restaurantEntity.getCapacity());
+        assertEquals(capacity, restaurantEntity.getTables());
         assertEquals(createAt, restaurantEntity.getCreateAt());
     }
 }

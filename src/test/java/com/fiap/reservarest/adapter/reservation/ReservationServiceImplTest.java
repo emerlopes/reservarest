@@ -69,7 +69,7 @@ class ReservationServiceImplTest {
                         restaurant.getLocation(),
                         restaurant.getCuisineType(),
                         restaurant.getHoursOfOperation(),
-                        restaurant.getCapacity(),
+                        restaurant.getTables(),
                         restaurant.getCreateAt()
                 ),
                 numberOfPeople,

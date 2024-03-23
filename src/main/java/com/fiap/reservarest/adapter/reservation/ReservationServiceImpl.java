@@ -8,7 +8,6 @@ import com.fiap.reservarest.domain.reservation.entity.ReservationSearchByIdDomai
 import com.fiap.reservarest.domain.reservation.exception.ReservationDomainCustomException;
 import com.fiap.reservarest.domain.reservation.service.ReservationService;
 import com.fiap.reservarest.domain.restaurant.service.RestaurantService;
-import jakarta.annotation.PostConstruct;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
@@ -79,7 +78,7 @@ public class ReservationServiceImpl implements ReservationService {
         logger.info("Updating quantity table by people");
 
         final var amountPeople = reservationDomainEntity.getAmountPeople();
-        final var quantityTable = reservationDomainEntity.getRestaurantDomainEntity().getCapacity();
+        final var quantityTable = reservationDomainEntity.getRestaurantDomainEntity().getTables();
         final var tableByPeople = calculateTableByPeople(amountPeople);
         final var tablesAvailable = calculateRestaurantTables(tableByPeople, quantityTable);
 
@@ -90,7 +89,7 @@ public class ReservationServiceImpl implements ReservationService {
             throw new ReservationDomainCustomException("There are no tables available for this amount of people");
         }
 
-        reservationDomainEntity.getRestaurantDomainEntity().setCapacity(tablesAvailable);
+        reservationDomainEntity.getRestaurantDomainEntity().setTables(tablesAvailable);
 
         restaurantService.saveRestaurant(reservationDomainEntity.getRestaurantDomainEntity());
     }
@@ -100,13 +99,13 @@ public class ReservationServiceImpl implements ReservationService {
         logger.info("Releasing tables");
 
         final var amountPeople = reservationDomainEntity.getAmountPeople();
-        final var quantityTable = reservationDomainEntity.getRestaurantDomainEntity().getCapacity();
+        final var quantityTable = reservationDomainEntity.getRestaurantDomainEntity().getTables();
         final var tableByPeople = calculateTableByPeople(amountPeople);
         final var tablesAvailable = quantityTable + tableByPeople;
 
         logger.info("Tables available ", tablesAvailable);
 
-        reservationDomainEntity.getRestaurantDomainEntity().setCapacity(tablesAvailable);
+        reservationDomainEntity.getRestaurantDomainEntity().setTables(tablesAvailable);
 
         restaurantService.saveRestaurant(reservationDomainEntity.getRestaurantDomainEntity());
     }
