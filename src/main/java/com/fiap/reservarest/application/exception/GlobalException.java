@@ -24,10 +24,12 @@ public class GlobalException {
     }
 
     @ExceptionHandler(ReservationDomainCustomException.class)
-    public ResponseEntity<?> handleExceptionBookingTable() {
+    public ResponseEntity<?> handleExceptionBookingTable(
+            ReservationDomainCustomException exception
+    ) {
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", LocalDateTime.now());
-        body.put("message", "There is no table available for more than 4 people.");
+        body.put("message", exception.getMessage());
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(body);
     }
