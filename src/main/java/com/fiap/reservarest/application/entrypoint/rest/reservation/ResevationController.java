@@ -40,8 +40,14 @@ public class ResevationController {
     @GetMapping("/restaurants/{restaurantExternalId}")
     public ResponseEntity<?> getReservationsByRestaurant(@PathVariable String restaurantExternalId) {
         final var domainEntity = ReservationSearchMapper.toDomainEntity(UUID.fromString(restaurantExternalId));
-        final var response = reservationSearchByRestaurantUseCase.execute(domainEntity);
+        final var output = reservationSearchByRestaurantUseCase.execute(domainEntity);
 
-        return ResponseEntity.status(HttpStatus.OK).body(new CustomResponse<>().setData(ReservationMapper.toResponseDTO(response)));
+        final var response = ReservationMapper.toResponseDTO(output);
+
+        if (output.isEmpty())
+            return ResponseEntity
+                    .status(HttpStatus.NO_CONTENT).body(response);
+
+        return ResponseEntity.status(HttpStatus.OK).body(new CustomResponse<>().setData(response));
     }
 }
