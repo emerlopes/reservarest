@@ -10,14 +10,14 @@ import java.util.UUID;
 public class ReservationDomainEntity {
 
     private Long reservationId;
-    private String reservationName;
-    private String reservationEmail;
-    private String reservationPhone;
-    private LocalDateTime reservationTime;
-    private Integer amountPeople;
+    private final String reservationName;
+    private final String reservationEmail;
+    private final String reservationPhone;
+    private final LocalDateTime reservationTime;
+    private final Integer amountPeople;
     private UUID restaurantExternalId;
     private RestaurantDomainEntity restaurantDomainEntity;
-    private ReservationStatusEnum status;
+    private final ReservationStatusEnum status;
 
     public ReservationDomainEntity(
             final String reservationName,
