@@ -35,7 +35,7 @@ public class ResevationController {
     }
 
     @PostMapping
-    public ResponseEntity<?> reservationTable(@Valid @RequestBody ReservationRequestDTO reservationRequestDTO) {
+    public ResponseEntity<CustomResponse<Object>> reservationTable(@Valid @RequestBody ReservationRequestDTO reservationRequestDTO) {
         final var domainEntity = ReservationMapper.toDomainEntity(reservationRequestDTO);
         final var response = reservationUseCase.execute(domainEntity);
 

@@ -15,7 +15,7 @@ import java.util.Map;
 public class GlobalException {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<?> handleException() {
+    public ResponseEntity<Map<String, Object>> handleException() {
         Map<String, Object> body = new LinkedHashMap<>();
         body.put("timestamp", LocalDateTime.now());
         body.put("message", "Invalid fields");
@@ -24,7 +24,7 @@ public class GlobalException {
     }
 
     @ExceptionHandler(ReservationDomainCustomException.class)
-    public ResponseEntity<?> handleExceptionBookingTable(
+    public ResponseEntity<Map<String, Object>> handleExceptionBookingTable(
             ReservationDomainCustomException exception
     ) {
         Map<String, Object> body = new LinkedHashMap<>();

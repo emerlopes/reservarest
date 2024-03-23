@@ -2,12 +2,16 @@ package com.fiap.reservarest.application.entrypoint.rest.restaurant;
 
 import com.fiap.reservarest.adapter.restaurant.mapper.RestaurantMapper;
 import com.fiap.reservarest.application.entrypoint.rest.restaurant.dto.RestaurantRequestDTO;
+import com.fiap.reservarest.application.entrypoint.rest.restaurant.dto.RestaurantResponseDTO;
+import com.fiap.reservarest.application.shared.CustomResponse;
 import com.fiap.reservarest.domain.restaurant.usecase.RestaurantCreationUseCase;
 import com.fiap.reservarest.domain.restaurant.usecase.RestaurantSearchUseCase;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/restaurants")
@@ -22,7 +26,7 @@ public class RestaurantController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createRestaurant(
+    public ResponseEntity<CustomResponse<RestaurantResponseDTO>> createRestaurant(
             final @Valid @RequestBody RestaurantRequestDTO restaurantRequestDTO
     ) {
         final var domainEntity = RestaurantMapper.toDomainEntity(restaurantRequestDTO);
@@ -34,7 +38,7 @@ public class RestaurantController {
     }
 
     @GetMapping("/search")
-    public ResponseEntity<?> searchRestaurant(
+    public ResponseEntity<CustomResponse<List<RestaurantResponseDTO>>> searchRestaurant(
             @RequestParam(required = false) final String keyword
     ) {
         final var domainEntity = RestaurantMapper.toDomainEntity(keyword);

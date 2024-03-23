@@ -1,7 +1,6 @@
 package com.fiap.reservarest.domain.reservation.entity;
 
 import com.fiap.reservarest.adapter.reservation.entity.ReservationStatusEnum;
-import com.fiap.reservarest.domain.reservation.exception.ReservationDomainCustomException;
 import com.fiap.reservarest.domain.restaurant.entity.RestaurantDomainEntity;
 
 import java.time.LocalDateTime;
@@ -117,12 +116,6 @@ public class ReservationDomainEntity {
 
     public void setStatus(ReservationStatusEnum status) {
         this.status = status;
-    }
-
-    private void validateReservationTable() {
-        if (this.amountPeople > 4) {
-            throw new ReservationDomainCustomException("Restaurant has no tables available for the amount of people");
-        }
     }
 
     @Override

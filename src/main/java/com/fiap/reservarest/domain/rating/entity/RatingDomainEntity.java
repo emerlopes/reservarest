@@ -5,10 +5,10 @@ import java.util.UUID;
 
 public class RatingDomainEntity {
     private Long ratingId;
-    private UUID restaurantId;
-    private Integer rating;
-    private String comment;
-    private LocalDateTime createdAt;
+    private final UUID restaurantId;
+    private final Integer rating;
+    private final String comment;
+    private final LocalDateTime createdAt;
 
     public RatingDomainEntity(
             final UUID restaurantId,

@@ -2,6 +2,7 @@ package com.fiap.reservarest.application.entrypoint.rest.rating;
 
 import com.fiap.reservarest.adapter.rating.mapper.RatingMapper;
 import com.fiap.reservarest.application.entrypoint.rest.rating.dto.RatingRequestDTO;
+import com.fiap.reservarest.application.entrypoint.rest.rating.dto.RatingResponseDTO;
 import com.fiap.reservarest.domain.rating.usecase.RatingCreationUseCase;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,7 @@ public class RatingController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createRating(@RequestBody RatingRequestDTO request) {
+    public ResponseEntity<RatingResponseDTO> createRating(@RequestBody RatingRequestDTO request) {
         final var ratingDomainEntity = RatingMapper.toDomainEntity(request);
         final var response = ratingCreationUseCase.execute(ratingDomainEntity);
 
