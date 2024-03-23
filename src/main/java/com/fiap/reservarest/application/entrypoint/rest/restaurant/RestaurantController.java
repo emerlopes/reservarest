@@ -20,7 +20,10 @@ public class RestaurantController {
     private final RestaurantCreationUseCase restaurantCreationUseCase;
     private final RestaurantSearchUseCase restaurantSearchUseCase;
 
-    public RestaurantController(RestaurantCreationUseCase restaurantCreationUseCase, RestaurantSearchUseCase restaurantSearchUseCase) {
+    public RestaurantController(
+            final RestaurantCreationUseCase restaurantCreationUseCase,
+            final RestaurantSearchUseCase restaurantSearchUseCase
+    ) {
         this.restaurantCreationUseCase = restaurantCreationUseCase;
         this.restaurantSearchUseCase = restaurantSearchUseCase;
     }

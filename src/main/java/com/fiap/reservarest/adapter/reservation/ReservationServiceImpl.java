@@ -35,7 +35,9 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public ReservationDomainEntity reservation(ReservationDomainEntity reservationDomainEntity) {
+    public ReservationDomainEntity reservation(
+            final ReservationDomainEntity reservationDomainEntity
+    ) {
         logger.info("Creating reservation: {}", reservationDomainEntity);
 
         final var entity = ReservationMapper.toEntity(reservationDomainEntity);
@@ -48,7 +50,9 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public ReservationDomainEntity updateReservation(ReservationDomainEntity reservationDomainEntity) {
+    public ReservationDomainEntity updateReservation(
+            final ReservationDomainEntity reservationDomainEntity
+    ) {
         final var entity = ReservationMapper.toEntity(reservationDomainEntity);
         entity.setReservationId(reservationDomainEntity.getReservationId());
 
@@ -61,9 +65,12 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public ReservationDomainEntity findReservationById(ReservationSearchByIdDomainEntity reservationSearchByIdDomainEntity) {
+    public ReservationDomainEntity findReservationById(
+            final ReservationSearchByIdDomainEntity reservationSearchByIdDomainEntity
+    ) {
         final var entity = reservationRepository.findById(reservationSearchByIdDomainEntity.getReservationId());
-        return ReservationMapper.toDomainEntity(entity.orElseThrow(() -> new ReservationDomainCustomException("Reservation not found")));
+        return ReservationMapper.toDomainEntity(entity.orElseThrow(
+                () -> new ReservationDomainCustomException("Reservation not found")));
     }
 
     @Override
@@ -73,7 +80,9 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public void updateQuantityTableByPeople(ReservationDomainEntity reservationDomainEntity) {
+    public void updateQuantityTableByPeople(
+            final ReservationDomainEntity reservationDomainEntity
+    ) {
 
         logger.info("Updating quantity table by people");
 
@@ -134,8 +143,8 @@ public class ReservationServiceImpl implements ReservationService {
 
             final var booking1 = new ReservationDomainEntity(
                     "John Doe",
-                    "email",
-                    "phone",
+                    "email1@exemplo.com",
+                    "1234567890",
                     LocalDateTime.now().plusDays(1),
                     4,
                     RestauranteNonna,
@@ -144,8 +153,8 @@ public class ReservationServiceImpl implements ReservationService {
 
             final var booking11 = new ReservationDomainEntity(
                     "John Doe",
-                    "email",
-                    "phone",
+                    "email2@exemplo.com",
+                    "1234567891",
                     LocalDateTime.now().plusDays(1),
                     4,
                     RestauranteNonna,
@@ -154,8 +163,8 @@ public class ReservationServiceImpl implements ReservationService {
 
             final var booking2 = new ReservationDomainEntity(
                     "Karl Doe",
-                    "email",
-                    "phone",
+                    "email3@exemplo.com",
+                    "1234567892",
                     LocalDateTime.now().plusDays(1),
                     2,
                     RestauranteSushiExpress,
@@ -164,8 +173,8 @@ public class ReservationServiceImpl implements ReservationService {
 
             final var booking22 = new ReservationDomainEntity(
                     "Karl Doe",
-                    "email",
-                    "phone",
+                    "email4@exemplo.com",
+                    "1234567893",
                     LocalDateTime.now().plusDays(1),
                     2,
                     RestauranteSushiExpress,
@@ -174,8 +183,8 @@ public class ReservationServiceImpl implements ReservationService {
 
             final var booking3 = new ReservationDomainEntity(
                     "Zack Doe",
-                    "email",
-                    "phone",
+                    "email5@exemplo.com",
+                    "1234567894",
                     LocalDateTime.now().plusDays(2),
                     4,
                     RestauranteTaqueriaDelSol,
@@ -184,8 +193,8 @@ public class ReservationServiceImpl implements ReservationService {
 
             final var booking33 = new ReservationDomainEntity(
                     "Zack Doe",
-                    "email",
-                    "phone",
+                    "email6@exemplo.com",
+                    "1234567895",
                     LocalDateTime.now().plusDays(2),
                     4,
                     RestauranteTaqueriaDelSol,
@@ -194,8 +203,8 @@ public class ReservationServiceImpl implements ReservationService {
 
             final var booking4 = new ReservationDomainEntity(
                     "Frank Doe",
-                    "email",
-                    "phone",
+                    "email7@exemplo.com",
+                    "1234567896",
                     LocalDateTime.now().plusDays(2),
                     2,
                     RestauranteBurgerHaven,
@@ -204,8 +213,8 @@ public class ReservationServiceImpl implements ReservationService {
 
             final var booking5 = new ReservationDomainEntity(
                     "Jack Doe",
-                    "email",
-                    "phone",
+                    "email8@exemplo.com",
+                    "1234567897",
                     LocalDateTime.now().plusDays(3),
                     4,
                     RestauranteTajMahal,
@@ -214,8 +223,8 @@ public class ReservationServiceImpl implements ReservationService {
 
             final var booking6 = new ReservationDomainEntity(
                     "Yuri Doe",
-                    "email",
-                    "phone",
+                    "email9@exemplo.com",
+                    "1234567898",
                     LocalDateTime.now().plusDays(3),
                     2,
                     RestauranteComidaDaVovo,

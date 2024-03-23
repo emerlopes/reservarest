@@ -35,19 +35,25 @@ public class ResevationController {
     }
 
     @PostMapping
-    public ResponseEntity<CustomResponse<Object>> reservationTable(@Valid @RequestBody ReservationRequestDTO reservationRequestDTO) {
+    public ResponseEntity<CustomResponse<Object>> reservationTable(
+            final @Valid @RequestBody ReservationRequestDTO reservationRequestDTO
+    ) {
         final var domainEntity = ReservationMapper.toDomainEntity(reservationRequestDTO);
         final var response = reservationUseCase.execute(domainEntity);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(new CustomResponse<>().setData(ReservationMapper.toResponseDTO(response)));
+        return ResponseEntity.status(HttpStatus.CREATED).body(new CustomResponse<>().setData(
+                ReservationMapper.toResponseDTO(response)));
     }
 
     @PostMapping("/update")
-    public ResponseEntity<?> updateReservation(@Valid @RequestBody UpdateReservationRequestDTO updateReservationRequestDTO) {
+    public ResponseEntity<?> updateReservation(
+            final @Valid @RequestBody UpdateReservationRequestDTO updateReservationRequestDTO
+    ) {
         final var domainEntity = ReservationMapper.toDomainEntity(updateReservationRequestDTO);
         final var response = updateReservationUseCase.execute(domainEntity);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(new CustomResponse<>().setData(ReservationMapper.toResponseDTO(response)));
+        return ResponseEntity.status(HttpStatus.CREATED).body(
+                new CustomResponse<>().setData(ReservationMapper.toResponseDTO(response)));
     }
 
     @GetMapping("/restaurants/{restaurantExternalId}")
@@ -61,6 +67,8 @@ public class ResevationController {
             return ResponseEntity
                     .status(HttpStatus.NO_CONTENT).body(response);
 
-        return ResponseEntity.status(HttpStatus.OK).body(new CustomResponse<>().setData(response));
+        return ResponseEntity.status(HttpStatus.OK).body(
+                new CustomResponse<>().setData(response)
+        );
     }
 }

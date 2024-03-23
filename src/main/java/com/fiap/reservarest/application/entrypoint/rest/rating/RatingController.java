@@ -21,11 +21,14 @@ public class RatingController {
     }
 
     @PostMapping
-    public ResponseEntity<RatingResponseDTO> createRating(@RequestBody RatingRequestDTO request) {
+    public ResponseEntity<RatingResponseDTO> createRating(
+            final @RequestBody RatingRequestDTO request
+    ) {
         final var ratingDomainEntity = RatingMapper.toDomainEntity(request);
         final var response = ratingCreationUseCase.execute(ratingDomainEntity);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(RatingMapper.toResponse(response));
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(RatingMapper.toResponse(response));
     }
 
 }
