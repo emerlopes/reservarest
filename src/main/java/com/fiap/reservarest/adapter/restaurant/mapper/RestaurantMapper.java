@@ -9,6 +9,7 @@ import com.fiap.reservarest.domain.restaurant.entity.RestaurantSearchDomainEntit
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 public class RestaurantMapper {
@@ -50,9 +51,9 @@ public class RestaurantMapper {
     ) {
         return new RestaurantDomainEntity(
                 UUID.randomUUID(),
-                restaurantRequestDTO.name(),
-                restaurantRequestDTO.location(),
-                restaurantRequestDTO.cuisineType(),
+                restaurantRequestDTO.name().toLowerCase(Locale.ROOT),
+                restaurantRequestDTO.location().toLowerCase(Locale.ROOT),
+                restaurantRequestDTO.cuisineType().toLowerCase(Locale.ROOT),
                 restaurantRequestDTO.hoursOfOperation(),
                 restaurantRequestDTO.tables(),
                 LocalDateTime.now()
