@@ -1,5 +1,6 @@
 package com.fiap.reservarest.domain.reservation.usecase.impl;
 
+import com.fiap.reservarest.adapter.reservation.entity.ReservationStatusEnum;
 import com.fiap.reservarest.domain.reservation.entity.ReservationDomainEntity;
 import com.fiap.reservarest.domain.reservation.service.ReservationService;
 import com.fiap.reservarest.domain.restaurant.entity.RestaurantDomainEntity;
@@ -45,7 +46,7 @@ class ReservationUseCaseImplTest {
                 LocalDateTime.now(),
                 2,
                 restaurantId,
-                null
+                ReservationStatusEnum.PENDING
         );
 
         RestaurantDomainEntity restaurantDomainEntity = new RestaurantDomainEntity();

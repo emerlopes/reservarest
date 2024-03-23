@@ -20,7 +20,7 @@ class RestaurantEntityTest {
 
     @Test
     void shouldCreateEmptyRestaurantEntityWithNoArgsConstructor() {
-        assertNull(restaurantEntity.getId());
+        assertNull(restaurantEntity.getRestaurantId());
         assertNull(restaurantEntity.getExternalId());
         assertNull(restaurantEntity.getName());
         assertNull(restaurantEntity.getLocation());

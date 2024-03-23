@@ -6,6 +6,7 @@ import com.fiap.reservarest.adapter.reservation.repository.ReservationRepository
 import com.fiap.reservarest.adapter.restaurant.entity.RestaurantEntity;
 import com.fiap.reservarest.domain.reservation.entity.ReservationDomainEntity;
 import com.fiap.reservarest.domain.restaurant.entity.RestaurantDomainEntity;
+import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
@@ -25,6 +26,9 @@ class ReservationServiceImplTest {
 
     @Mock
     private ReservationRepository reservationRepository;
+
+    @Mock
+    private Logger logger;
 
     @BeforeEach
     void setUp() {

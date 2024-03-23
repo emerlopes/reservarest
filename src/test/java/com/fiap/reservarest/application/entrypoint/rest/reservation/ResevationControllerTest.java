@@ -1,5 +1,6 @@
 package com.fiap.reservarest.application.entrypoint.rest.reservation;
 
+import com.fiap.reservarest.adapter.reservation.entity.ReservationStatusEnum;
 import com.fiap.reservarest.application.entrypoint.rest.reservation.dto.ReservationRequestDTO;
 import com.fiap.reservarest.domain.reservation.entity.ReservationDomainEntity;
 import com.fiap.reservarest.domain.reservation.usecase.ReservationUseCase;
@@ -44,7 +45,7 @@ class ResevationControllerTest {
                 reservationTime,
                 null,
                 new RestaurantDomainEntity(),
-                null
+                ReservationStatusEnum.PENDING
         );
 
         ReservationRequestDTO reservationRequestDTO = createBookingRequestDTO(
@@ -69,6 +70,7 @@ class ResevationControllerTest {
         reservationRequestDTO.setReservationTime(reservationTime);
         reservationRequestDTO.setAmountPeople(amountPeople);
         reservationRequestDTO.setRestaurantId(restaurantId);
+        reservationRequestDTO.setStatus(ReservationStatusEnum.PENDING.getStatus());
         return reservationRequestDTO;
     }
 
