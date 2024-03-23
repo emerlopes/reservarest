@@ -84,7 +84,7 @@ public class ReservationServiceImpl implements ReservationService {
         return quantityTable - reservedTables;
     }
 
-    @PostConstruct
+//    @PostConstruct
     public void init() {
         logger.info("BookingServiceImpl started");
 
