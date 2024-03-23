@@ -117,4 +117,18 @@ public class ReservationDomainEntity {
         }
     }
 
+    @Override
+    public String toString() {
+        return "{" +
+                "reservation_id:" + reservationId +
+                ", reservation_name:'" + reservationName + '\'' +
+                ", reservation_email:'" + reservationEmail + '\'' +
+                ", reservation_phone:'" + reservationPhone + '\'' +
+                ", reservation_time:" + reservationTime +
+                ", amount_people:" + amountPeople +
+                ", restaurant_external_id:" + restaurantExternalId +
+                ", restaurant_domain_entity:" + restaurantDomainEntity +
+                ", status:" + status +
+                '}';
+    }
 }

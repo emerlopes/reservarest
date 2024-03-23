@@ -1,6 +1,7 @@
 package com.fiap.reservarest.adapter.reservation.mapper;
 
 import com.fiap.reservarest.adapter.reservation.entity.ReservationEntity;
+import com.fiap.reservarest.adapter.reservation.entity.ReservationStatusEnum;
 import com.fiap.reservarest.adapter.restaurant.mapper.RestaurantMapper;
 import com.fiap.reservarest.application.entrypoint.rest.reservation.dto.ReservationRequestDTO;
 import com.fiap.reservarest.application.entrypoint.rest.reservation.dto.ReservationResponseDTO;
@@ -40,7 +41,7 @@ public class ReservationMapper {
                 reservationEntity.getReservationTime(),
                 reservationEntity.getAmountPeople(),
                 RestaurantMapper.toDomainEntity(reservationEntity.getRestaurantEntity()),
-                reservationEntity.getStatus()
+                ReservationStatusEnum.fromString(reservationEntity.getStatus().toString())
         );
     }
 
@@ -55,7 +56,7 @@ public class ReservationMapper {
                 reservationDomainEntity.getReservationTime(),
                 reservationDomainEntity.getAmountPeople(),
                 restaurantDomainEntity,
-                reservationDomainEntity.getStatus()
+                ReservationStatusEnum.fromString(reservationDomainEntity.getStatus().toString())
         );
     }
 
@@ -69,7 +70,7 @@ public class ReservationMapper {
                 reservationRequestDTO.getReservationTime(),
                 reservationRequestDTO.getAmountPeople(),
                 reservationRequestDTO.getRestaurantId(),
-                reservationRequestDTO.getStatus()
+                ReservationStatusEnum.fromString(reservationRequestDTO.getStatus())
         );
     }
 
@@ -84,7 +85,7 @@ public class ReservationMapper {
                 reservationDomainEntity.getReservationTime(),
                 reservationDomainEntity.getAmountPeople(),
                 RestaurantMapper.toResponse(reservationDomainEntity.getRestaurantDomainEntity()),
-                reservationDomainEntity.getStatus()
+                ReservationStatusEnum.fromString(reservationDomainEntity.getStatus().toString())
         );
     }
 

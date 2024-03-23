@@ -4,6 +4,7 @@ import com.fiap.reservarest.adapter.restaurant.entity.RestaurantEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 
@@ -45,5 +46,19 @@ public class ReservationEntity {
         this.restaurantEntity = restaurantEntity;
         this.amountPeople = amountPeople;
         this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "reservation_id:" + reservationId +
+                ", reservation_name:'" + reservationName + '\'' +
+                ", reservation_email:'" + reservationEmail + '\'' +
+                ", reservation_phone:'" + reservationPhone + '\'' +
+                ", reservation_time:" + reservationTime +
+                ", restaurant_entity:" + restaurantEntity +
+                ", amount_people:" + amountPeople +
+                ", status:" + status +
+                '}';
     }
 }

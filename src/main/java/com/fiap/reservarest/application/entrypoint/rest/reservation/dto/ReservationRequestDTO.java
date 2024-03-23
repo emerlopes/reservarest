@@ -29,6 +29,6 @@ public class ReservationRequestDTO {
     private UUID restaurantId;
 
     @JsonProperty("status")
-    private ReservationStatusEnum status;
+    private String status;
 
 }

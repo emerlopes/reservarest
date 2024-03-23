@@ -20,10 +20,8 @@ import java.util.UUID;
 public class ReservationServiceImpl implements ReservationService {
 
     private final Logger logger;
-
     private final ReservationRepository reservationRepository;
     private final RestaurantService restaurantService;
-
     private final int QUANTITY_PEOPLE_PER_TABLE = 4;
 
 
@@ -39,10 +37,15 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public ReservationDomainEntity reservation(ReservationDomainEntity reservationDomainEntity) {
+        logger.info("Creating reservation: {}", reservationDomainEntity);
+
         final var entity = ReservationMapper.toEntity(reservationDomainEntity);
         final var savedEntity = reservationRepository.save(entity);
+        final var domainEntity = ReservationMapper.toDomainEntity(savedEntity);
 
-        return ReservationMapper.toDomainEntity(savedEntity);
+        logger.info("Reservation created successfully: {}", domainEntity);
+
+        return domainEntity;
     }
 
     @Override
@@ -64,16 +67,16 @@ public class ReservationServiceImpl implements ReservationService {
 
         final var amountPeople = reservationDomainEntity.getAmountPeople();
         final var quantityTable = reservationDomainEntity.getRestaurantDomainEntity().getCapacity();
-        final var aviableTables = calculateTableByPeople(amountPeople, quantityTable);
+        final var tablesAvailable = calculateTableByPeople(amountPeople, quantityTable);
 
-        logger.info("Aviable tables: {}", aviableTables);
+        logger.info("Tables available ", tablesAvailable);
 
-        if (aviableTables < 0) {
+        if (tablesAvailable < 0) {
             logger.error("There are no tables available for this amount of people: {}", amountPeople);
             throw new ReservationDomainCustomException("There are no tables available for this amount of people");
         }
 
-        reservationDomainEntity.getRestaurantDomainEntity().setCapacity(aviableTables);
+        reservationDomainEntity.getRestaurantDomainEntity().setCapacity(tablesAvailable);
 
         restaurantService.saveRestaurant(reservationDomainEntity.getRestaurantDomainEntity());
     }
@@ -84,7 +87,7 @@ public class ReservationServiceImpl implements ReservationService {
         return quantityTable - reservedTables;
     }
 
-//    @PostConstruct
+    //    @PostConstruct
     public void init() {
         logger.info("BookingServiceImpl started");
 

@@ -34,12 +34,16 @@ public class RestaurantServiceImpl implements RestaurantService {
             final RestaurantDomainEntity restaurantDomainEntity
     ) {
 
-        logger.info("Creating restaurant: {}", restaurantDomainEntity.getName());
+        logger.info("Saving restaurant: {}", restaurantDomainEntity.getName());
 
         final var entity = RestaurantMapper.toEntity(restaurantDomainEntity);
-        final var domainEntity = restaurantRepository.save(entity);
+        final var entitySaved = restaurantRepository.save(entity);
 
-        return RestaurantMapper.toDomainEntity(domainEntity);
+        final var domainEntity = RestaurantMapper.toDomainEntity(entitySaved);
+
+        logger.info("Restaurant saved: {}", domainEntity);
+
+        return domainEntity;
     }
 
     @Override

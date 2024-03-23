@@ -112,4 +112,18 @@ public class RestaurantDomainEntity {
             throw new RestaurantDomainCustomException("Capacity cannot be null or less than or equal to 0");
         }
     }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "id:" + id +
+                ", external_id:" + externalId +
+                ", name:'" + name + '\'' +
+                ", location:'" + location + '\'' +
+                ", cuisine_type:'" + cuisineType + '\'' +
+                ", hours_of_operation:" + hoursOfOperation +
+                ", capacity:" + capacity +
+                ", createAt:" + createAt +
+                '}';
+    }
 }

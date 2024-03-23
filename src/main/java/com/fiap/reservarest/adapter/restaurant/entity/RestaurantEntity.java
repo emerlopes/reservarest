@@ -71,4 +71,17 @@ public class RestaurantEntity {
         this.createAt = createAt;
     }
 
+    @Override
+    public String toString() {
+        return "{" +
+                "restaurant_id:" + restaurantId +
+                ", external_id:" + externalId +
+                ", name:'" + name + '\'' +
+                ", location:'" + location + '\'' +
+                ", cuisine_type:'" + cuisineType + '\'' +
+                ", hours_of_operation:" + hoursOfOperation +
+                ", capacity:" + capacity +
+                ", create_at:" + createAt +
+                '}';
+    }
 }
