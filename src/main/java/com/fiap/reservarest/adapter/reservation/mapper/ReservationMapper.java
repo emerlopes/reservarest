@@ -2,9 +2,8 @@ package com.fiap.reservarest.adapter.reservation.mapper;
 
 import com.fiap.reservarest.adapter.reservation.entity.ReservationEntity;
 import com.fiap.reservarest.adapter.restaurant.mapper.RestaurantMapper;
-import com.fiap.reservarest.application.entrypoint.rest.booking.dto.BookingRequestDTO;
-import com.fiap.reservarest.application.entrypoint.rest.booking.dto.BookingResponseDTO;
-import com.fiap.reservarest.application.shared.CustomResponse;
+import com.fiap.reservarest.application.entrypoint.rest.reservation.dto.ReservationRequestDTO;
+import com.fiap.reservarest.application.entrypoint.rest.reservation.dto.ReservationResponseDTO;
 import com.fiap.reservarest.domain.reservation.entity.ReservationDomainEntity;
 import com.fiap.reservarest.domain.restaurant.entity.RestaurantDomainEntity;
 
@@ -61,23 +60,23 @@ public class ReservationMapper {
     }
 
     public static ReservationDomainEntity toDomainEntity(
-            final BookingRequestDTO bookingRequestDTO
+            final ReservationRequestDTO reservationRequestDTO
     ) {
         return new ReservationDomainEntity(
-                bookingRequestDTO.getReservationName(),
-                bookingRequestDTO.getReservationEmail(),
-                bookingRequestDTO.getReservationPhone(),
-                bookingRequestDTO.getReservationTime(),
-                bookingRequestDTO.getAmountPeople(),
-                bookingRequestDTO.getRestaurantId(),
-                bookingRequestDTO.getStatus()
+                reservationRequestDTO.getReservationName(),
+                reservationRequestDTO.getReservationEmail(),
+                reservationRequestDTO.getReservationPhone(),
+                reservationRequestDTO.getReservationTime(),
+                reservationRequestDTO.getAmountPeople(),
+                reservationRequestDTO.getRestaurantId(),
+                reservationRequestDTO.getStatus()
         );
     }
 
-    public static BookingResponseDTO toResponseDTO(
+    public static ReservationResponseDTO toResponseDTO(
             final ReservationDomainEntity reservationDomainEntity
     ) {
-        return new BookingResponseDTO(
+        return new ReservationResponseDTO(
                 reservationDomainEntity.getReservationId(),
                 reservationDomainEntity.getReservationName(),
                 reservationDomainEntity.getReservationEmail(),
@@ -89,7 +88,7 @@ public class ReservationMapper {
         );
     }
 
-    public static List<BookingResponseDTO> toResponseDTO(
+    public static List<ReservationResponseDTO> toResponseDTO(
             final List<ReservationDomainEntity> reservationDomainEntity
     ) {
         return reservationDomainEntity.stream().map(ReservationMapper::toResponseDTO).toList();

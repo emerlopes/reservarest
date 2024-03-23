@@ -1,6 +1,6 @@
-package com.fiap.reservarest.application.entrypoint.rest.booking;
+package com.fiap.reservarest.application.entrypoint.rest.reservation;
 
-import com.fiap.reservarest.application.entrypoint.rest.booking.dto.BookingRequestDTO;
+import com.fiap.reservarest.application.entrypoint.rest.reservation.dto.ReservationRequestDTO;
 import com.fiap.reservarest.domain.reservation.entity.ReservationDomainEntity;
 import com.fiap.reservarest.domain.reservation.usecase.ReservationUseCase;
 import com.fiap.reservarest.domain.restaurant.entity.RestaurantDomainEntity;
@@ -19,10 +19,10 @@ import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(MockitoExtension.class)
-class BookingControllerTest {
+class ResevationControllerTest {
 
     @InjectMocks
-    private BookingController bookingController;
+    private ResevationController resevationController;
 
     @Mock
     private ReservationUseCase reservationUseCase;
@@ -47,7 +47,7 @@ class BookingControllerTest {
                 null
         );
 
-        BookingRequestDTO bookingRequestDTO = createBookingRequestDTO(
+        ReservationRequestDTO reservationRequestDTO = createBookingRequestDTO(
                 reservationName,
                 reservationTime,
                 amountPeople,
@@ -57,19 +57,19 @@ class BookingControllerTest {
         Mockito.when(reservationUseCase.execute(Mockito.any(ReservationDomainEntity.class))).thenReturn(reservationDomainEntity);
 
         // Act
-        ResponseEntity<?> response = bookingController.booking(bookingRequestDTO);
+        ResponseEntity<?> response = resevationController.reservationTable(reservationRequestDTO);
 
         // Assert
         assertEquals(HttpStatus.CREATED, response.getStatusCode());
     }
 
-    private BookingRequestDTO createBookingRequestDTO(String reservationName, LocalDateTime reservationTime, int amountPeople, UUID restaurantId) {
-        BookingRequestDTO bookingRequestDTO = new BookingRequestDTO();
-        bookingRequestDTO.setReservationName(reservationName);
-        bookingRequestDTO.setReservationTime(reservationTime);
-        bookingRequestDTO.setAmountPeople(amountPeople);
-        bookingRequestDTO.setRestaurantId(restaurantId);
-        return bookingRequestDTO;
+    private ReservationRequestDTO createBookingRequestDTO(String reservationName, LocalDateTime reservationTime, int amountPeople, UUID restaurantId) {
+        ReservationRequestDTO reservationRequestDTO = new ReservationRequestDTO();
+        reservationRequestDTO.setReservationName(reservationName);
+        reservationRequestDTO.setReservationTime(reservationTime);
+        reservationRequestDTO.setAmountPeople(amountPeople);
+        reservationRequestDTO.setRestaurantId(restaurantId);
+        return reservationRequestDTO;
     }
 
 }

@@ -1,11 +1,10 @@
-package com.fiap.reservarest.application.entrypoint.rest.booking;
+package com.fiap.reservarest.application.entrypoint.rest.reservation;
 
 
 import com.fiap.reservarest.adapter.reservation.mapper.ReservationMapper;
 import com.fiap.reservarest.adapter.reservation.mapper.ReservationSearchMapper;
-import com.fiap.reservarest.application.entrypoint.rest.booking.dto.BookingRequestDTO;
+import com.fiap.reservarest.application.entrypoint.rest.reservation.dto.ReservationRequestDTO;
 import com.fiap.reservarest.application.shared.CustomResponse;
-import com.fiap.reservarest.domain.reservation.entity.ReservationSearchByRestaurantDomainEntity;
 import com.fiap.reservarest.domain.reservation.usecase.ReservationSearchByRestaurantUseCase;
 import com.fiap.reservarest.domain.reservation.usecase.ReservationUseCase;
 import jakarta.validation.Valid;
@@ -17,12 +16,12 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("bookings")
-public class BookingController {
+public class ResevationController {
 
     private final ReservationUseCase reservationUseCase;
     private final ReservationSearchByRestaurantUseCase reservationSearchByRestaurantUseCase;
 
-    public BookingController(
+    public ResevationController(
             final ReservationUseCase reservationUseCase,
             final ReservationSearchByRestaurantUseCase reservationSearchByRestaurantUseCase
     ) {
@@ -31,8 +30,8 @@ public class BookingController {
     }
 
     @PostMapping
-    public ResponseEntity<?> booking(@Valid @RequestBody BookingRequestDTO bookingRequestDTO) {
-        final var domainEntity = ReservationMapper.toDomainEntity(bookingRequestDTO);
+    public ResponseEntity<?> reservationTable(@Valid @RequestBody ReservationRequestDTO reservationRequestDTO) {
+        final var domainEntity = ReservationMapper.toDomainEntity(reservationRequestDTO);
         final var response = reservationUseCase.execute(domainEntity);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(new CustomResponse<>().setData(ReservationMapper.toResponseDTO(response)));

@@ -1,4 +1,4 @@
-package com.fiap.reservarest.application.entrypoint.rest.booking.dto;
+package com.fiap.reservarest.application.entrypoint.rest.reservation.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fiap.reservarest.adapter.reservation.entity.ReservationStatusEnum;
@@ -8,7 +8,7 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
-public class BookingResponseDTO {
+public class ReservationResponseDTO {
 
     @JsonProperty("reservation_id")
     private Long reservationId;
@@ -34,7 +34,7 @@ public class BookingResponseDTO {
     @JsonProperty("status")
     private ReservationStatusEnum status;
 
-    public BookingResponseDTO(
+    public ReservationResponseDTO(
             final Long reservationId,
             final String reservationName,
             final String reservationEmail,

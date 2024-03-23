@@ -1,4 +1,4 @@
-package com.fiap.reservarest.application.entrypoint.rest.booking.dto;
+package com.fiap.reservarest.application.entrypoint.rest.reservation.dto;
 
 import com.fiap.reservarest.adapter.reservation.entity.ReservationStatusEnum;
 import com.fiap.reservarest.application.entrypoint.rest.restaurant.dto.RestaurantResponseDTO;
@@ -10,13 +10,13 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class BookingResponseDTOTest {
+class ReservationResponseDTOTest {
 
-    private BookingResponseDTO bookingResponseDTO;
+    private ReservationResponseDTO reservationResponseDTO;
 
     @BeforeEach
     void setUp() {
-        bookingResponseDTO = new BookingResponseDTO(
+        reservationResponseDTO = new ReservationResponseDTO(
                 1L,
                 "John's Reservation",
                 "email",
@@ -39,33 +39,33 @@ class BookingResponseDTOTest {
     @Test
     void shouldReturnCorrectReservationIdWhenSet() {
         Long expectedReservationId = 1L;
-        bookingResponseDTO.setReservationId(expectedReservationId);
+        reservationResponseDTO.setReservationId(expectedReservationId);
 
-        assertEquals(expectedReservationId, bookingResponseDTO.getReservationId());
+        assertEquals(expectedReservationId, reservationResponseDTO.getReservationId());
     }
 
     @Test
     void shouldReturnCorrectReservationNameWhenSet() {
         String expectedReservationName = "John's Reservation";
-        bookingResponseDTO.setReservationName(expectedReservationName);
+        reservationResponseDTO.setReservationName(expectedReservationName);
 
-        assertEquals(expectedReservationName, bookingResponseDTO.getReservationName());
+        assertEquals(expectedReservationName, reservationResponseDTO.getReservationName());
     }
 
     @Test
     void shouldReturnCorrectReservationTimeWhenSet() {
         LocalDateTime expectedReservationTime = LocalDateTime.now();
-        bookingResponseDTO.setReservationTime(expectedReservationTime);
+        reservationResponseDTO.setReservationTime(expectedReservationTime);
 
-        assertEquals(expectedReservationTime, bookingResponseDTO.getReservationTime());
+        assertEquals(expectedReservationTime, reservationResponseDTO.getReservationTime());
     }
 
     @Test
     void shouldReturnCorrectAmountPeopleWhenSet() {
         Integer expectedAmountPeople = 4;
-        bookingResponseDTO.setAmountPeople(expectedAmountPeople);
+        reservationResponseDTO.setAmountPeople(expectedAmountPeople);
 
-        assertEquals(expectedAmountPeople, bookingResponseDTO.getAmountPeople());
+        assertEquals(expectedAmountPeople, reservationResponseDTO.getAmountPeople());
     }
 
     @Test
@@ -79,8 +79,8 @@ class BookingResponseDTOTest {
                 8,
                 LocalDateTime.now()
         );
-        bookingResponseDTO.setRestaurantResponseDTO(expectedRestaurantResponseDTO);
+        reservationResponseDTO.setRestaurantResponseDTO(expectedRestaurantResponseDTO);
 
-        assertEquals(expectedRestaurantResponseDTO, bookingResponseDTO.getRestaurantResponseDTO());
+        assertEquals(expectedRestaurantResponseDTO, reservationResponseDTO.getRestaurantResponseDTO());
     }
 }
