@@ -48,6 +48,10 @@ public class ReservationEntity {
         this.status = status;
     }
 
+    public void setReservationId(Long reservationId) {
+        this.reservationId = reservationId;
+    }
+
     @Override
     public String toString() {
         return "{" +

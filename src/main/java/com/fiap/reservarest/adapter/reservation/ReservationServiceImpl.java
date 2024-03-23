@@ -49,6 +49,19 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
+    public ReservationDomainEntity updateReservation(ReservationDomainEntity reservationDomainEntity) {
+        final var entity = ReservationMapper.toEntity(reservationDomainEntity);
+        entity.setReservationId(reservationDomainEntity.getReservationId());
+
+        final var savedEntity = reservationRepository.save(entity);
+        final var domainEntity = ReservationMapper.toDomainEntity(savedEntity);
+
+        logger.info("Reservation saved successfully: {}", domainEntity);
+
+        return domainEntity;
+    }
+
+    @Override
     public ReservationDomainEntity findReservationById(ReservationSearchByIdDomainEntity reservationSearchByIdDomainEntity) {
         final var entity = reservationRepository.findById(reservationSearchByIdDomainEntity.getReservationId());
         return ReservationMapper.toDomainEntity(entity.orElseThrow(() -> new ReservationDomainCustomException("Reservation not found")));
@@ -67,9 +80,10 @@ public class ReservationServiceImpl implements ReservationService {
 
         final var amountPeople = reservationDomainEntity.getAmountPeople();
         final var quantityTable = reservationDomainEntity.getRestaurantDomainEntity().getCapacity();
-        final var tablesAvailable = calculateTableByPeople(amountPeople, quantityTable);
+        final var tableByPeople = calculateTableByPeople(amountPeople);
+        final var tablesAvailable = calculateRestaurantTables(tableByPeople, quantityTable);
 
-        logger.info("Tables available ", tablesAvailable);
+        logger.info("Tables by people ", tableByPeople);
 
         if (tablesAvailable < 0) {
             logger.error("There are no tables available for this amount of people: {}", amountPeople);
@@ -81,10 +95,28 @@ public class ReservationServiceImpl implements ReservationService {
         restaurantService.saveRestaurant(reservationDomainEntity.getRestaurantDomainEntity());
     }
 
-    private Integer calculateTableByPeople(Integer amountPeople, int quantityTable) {
-        final var reservedTables = (int) Math.ceil((double) amountPeople / QUANTITY_PEOPLE_PER_TABLE);
+    @Override
+    public void releaseTables(ReservationDomainEntity reservationDomainEntity) {
+        logger.info("Releasing tables");
 
-        return quantityTable - reservedTables;
+        final var amountPeople = reservationDomainEntity.getAmountPeople();
+        final var quantityTable = reservationDomainEntity.getRestaurantDomainEntity().getCapacity();
+        final var tableByPeople = calculateTableByPeople(amountPeople);
+        final var tablesAvailable = quantityTable + tableByPeople;
+
+        logger.info("Tables available ", tablesAvailable);
+
+        reservationDomainEntity.getRestaurantDomainEntity().setCapacity(tablesAvailable);
+
+        restaurantService.saveRestaurant(reservationDomainEntity.getRestaurantDomainEntity());
+    }
+
+    private Integer calculateTableByPeople(Integer amountPeople) {
+        return (int) Math.ceil((double) amountPeople / QUANTITY_PEOPLE_PER_TABLE);
+    }
+
+    private Integer calculateRestaurantTables(Integer tableByPeople, int quantityTable) {
+        return quantityTable - tableByPeople;
     }
 
     //    @PostConstruct

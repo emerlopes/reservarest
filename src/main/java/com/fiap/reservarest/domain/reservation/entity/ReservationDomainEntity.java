@@ -17,7 +17,7 @@ public class ReservationDomainEntity {
     private final Integer amountPeople;
     private UUID restaurantExternalId;
     private RestaurantDomainEntity restaurantDomainEntity;
-    private final ReservationStatusEnum status;
+    private ReservationStatusEnum status;
 
     public ReservationDomainEntity(
             final String reservationName,
@@ -109,6 +109,14 @@ public class ReservationDomainEntity {
 
     public ReservationStatusEnum getStatus() {
         return status;
+    }
+
+    public void setReservationId(Long reservationId) {
+        this.reservationId = reservationId;
+    }
+
+    public void setStatus(ReservationStatusEnum status) {
+        this.status = status;
     }
 
     private void validateReservationTable() {

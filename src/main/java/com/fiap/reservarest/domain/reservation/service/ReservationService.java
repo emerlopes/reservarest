@@ -8,10 +8,14 @@ import java.util.List;
 public interface ReservationService {
     ReservationDomainEntity reservation(ReservationDomainEntity reservationDomainEntity);
 
+    ReservationDomainEntity updateReservation(ReservationDomainEntity reservationDomainEntity);
+
     ReservationDomainEntity findReservationById(ReservationSearchByIdDomainEntity reservationSearchByIdDomainEntity);
 
     List<ReservationDomainEntity> findReservationByRestaurantId(Long restaurantId);
 
     void updateQuantityTableByPeople(ReservationDomainEntity reservationDomainEntity);
+
+    void releaseTables(ReservationDomainEntity reservationDomainEntity);
 
 }

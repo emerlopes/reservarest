@@ -5,7 +5,9 @@ import com.fiap.reservarest.adapter.reservation.entity.ReservationStatusEnum;
 import com.fiap.reservarest.adapter.restaurant.mapper.RestaurantMapper;
 import com.fiap.reservarest.application.entrypoint.rest.reservation.dto.ReservationRequestDTO;
 import com.fiap.reservarest.application.entrypoint.rest.reservation.dto.ReservationResponseDTO;
+import com.fiap.reservarest.application.entrypoint.rest.reservation.dto.UpdateReservationRequestDTO;
 import com.fiap.reservarest.domain.reservation.entity.ReservationDomainEntity;
+import com.fiap.reservarest.domain.reservation.entity.UpdateReservationByIdDomainEntity;
 import com.fiap.reservarest.domain.restaurant.entity.RestaurantDomainEntity;
 
 import java.util.List;
@@ -71,6 +73,15 @@ public class ReservationMapper {
                 reservationRequestDTO.getAmountPeople(),
                 reservationRequestDTO.getRestaurantId(),
                 ReservationStatusEnum.fromString(reservationRequestDTO.getStatus())
+        );
+    }
+
+    public static UpdateReservationByIdDomainEntity toDomainEntity(
+            final UpdateReservationRequestDTO updateReservationRequestDTO
+    ) {
+        return new UpdateReservationByIdDomainEntity(
+                updateReservationRequestDTO.getReservationId(),
+                updateReservationRequestDTO.getStatus()
         );
     }
 
