@@ -6,6 +6,7 @@ public enum ReservationStatusEnum {
 
     PENDING,
     CONFIRMED,
+    RELEASED,
     CANCELED;
 
     private String status;
@@ -29,6 +30,6 @@ public enum ReservationStatusEnum {
                 return reservationStatusEnum;
             }
         }
-        throw new ReservationDomainCustomException("Invalid reservation status, please provide a valid status: PENDING, CONFIRMED or CANCELED.");
+        throw new ReservationDomainCustomException("Invalid reservation status, please provide a valid status: PENDING, CONFIRMED, RELEASED or CANCELED.");
     }
 }
