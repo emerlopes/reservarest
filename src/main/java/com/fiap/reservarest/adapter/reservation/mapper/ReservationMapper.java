@@ -10,7 +10,9 @@ import com.fiap.reservarest.domain.reservation.entity.ReservationDomainEntity;
 import com.fiap.reservarest.domain.reservation.entity.UpdateReservationByIdDomainEntity;
 import com.fiap.reservarest.domain.restaurant.entity.RestaurantDomainEntity;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 public class ReservationMapper {
 
@@ -104,5 +106,25 @@ public class ReservationMapper {
             final List<ReservationDomainEntity> reservationDomainEntity
     ) {
         return reservationDomainEntity.stream().map(ReservationMapper::toResponseDTO).toList();
+    }
+
+    public static ReservationRequestDTO toRequestDTO(
+            final String reservationName,
+            final String reservationEmail,
+            final String reservationPhone,
+            final LocalDateTime reservationTime,
+            final Integer amountPeople,
+            final UUID restaurantId,
+            final String status
+    ) {
+        return new ReservationRequestDTO(
+                reservationName,
+                reservationEmail,
+                reservationPhone,
+                LocalDateTime.now(),
+                amountPeople,
+                restaurantId,
+                status
+        );
     }
 }
