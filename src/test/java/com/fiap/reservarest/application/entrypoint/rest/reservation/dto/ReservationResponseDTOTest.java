@@ -53,6 +53,22 @@ class ReservationResponseDTOTest {
     }
 
     @Test
+    void shouldReturnCorrectReservationEmailWhenSet() {
+        String expectedReservationEmail = "email";
+        reservationResponseDTO.setReservationEmail(expectedReservationEmail);
+
+        assertEquals(expectedReservationEmail, reservationResponseDTO.getReservationEmail());
+    }
+
+    @Test
+    void shouldReturnCorrectReservationPhoneWhenSet() {
+        String expectedReservationPhone = "phone";
+        reservationResponseDTO.setReservationPhone(expectedReservationPhone);
+
+        assertEquals(expectedReservationPhone, reservationResponseDTO.getReservationPhone());
+    }
+
+    @Test
     void shouldReturnCorrectReservationTimeWhenSet() {
         LocalDateTime expectedReservationTime = LocalDateTime.now();
         reservationResponseDTO.setReservationTime(expectedReservationTime);
@@ -82,5 +98,13 @@ class ReservationResponseDTOTest {
         reservationResponseDTO.setRestaurantResponseDTO(expectedRestaurantResponseDTO);
 
         assertEquals(expectedRestaurantResponseDTO, reservationResponseDTO.getRestaurantResponseDTO());
+    }
+
+    @Test
+    void shouldReturnCorrectStatusWhenSet() {
+        ReservationStatusEnum expectedStatus = ReservationStatusEnum.CONFIRMED;
+        reservationResponseDTO.setStatus(expectedStatus);
+
+        assertEquals(expectedStatus, reservationResponseDTO.getStatus());
     }
 }

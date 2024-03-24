@@ -1,5 +1,7 @@
 package com.fiap.reservarest.application.exception;
 
+import com.fiap.reservarest.domain.reservation.exception.ReservationDomainCustomException;
+import com.fiap.reservarest.domain.restaurant.exception.RestaurantDomainCustomException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
@@ -47,5 +49,31 @@ class GlobalExceptionTest {
         // Assert
         Map<String, Object> body = (Map<String, Object>) responseEntity.getBody();
         assertTrue(((LocalDateTime) body.get("timestamp")).isBefore(LocalDateTime.now()));
+    }
+
+    @Test
+    void handleExceptionBookingTableShouldReturnBadRequestWhenReservationDomainCustomExceptionOccurs() {
+        // Arrange
+        ReservationDomainCustomException exception = new ReservationDomainCustomException("Test exception");
+
+        // Act
+        ResponseEntity<Map<String, Object>> response = globalException.handleExceptionBookingTable(exception);
+
+        // Assert
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals("Test exception", response.getBody().get("message"));
+    }
+
+    @Test
+    void handleExceptionBookingTableShouldReturnBadRequestWhenRestaurantDomainCustomExceptionOccurs() {
+        // Arrange
+        RestaurantDomainCustomException exception = new RestaurantDomainCustomException("Test exception");
+
+        // Act
+        ResponseEntity<Map<String, Object>> response = globalException.handleExceptionBookingTable(exception);
+
+        // Assert
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
+        assertEquals("Test exception", response.getBody().get("message"));
     }
 }
