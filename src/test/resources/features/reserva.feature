@@ -9,9 +9,12 @@ Funcionalidade: Registrar Reserva
     Dado informado os seguintes dados da reserva:
       | nome_reserva   | email   | telefone_celular   | horario   | pessoas   | restaurante   | status_reserva   |
       | <nome_reserva> | <email> | <telefone_celular> | <horario> | <pessoas> | <restaurante> | <status_reserva> |
-    Quando o usuário solicitar o registro do restaurante
-    Então o registro do restaurante deve ser <resultado_esperado>
+    Quando o usuário solicitar a reserva
+    Então o registro da reserva deve ser <resultado_esperado>
 
     Exemplos:
-      | nome_reserva   | email              | telefone_celular | horario             | pessoas | restaurante         | status_reserva | resultado_esperado |
-      | Jorge Valdivia | valdivia@gmail.com | 123456789        | 2024-03-23T08:00:00 | 10      | Outback Steak House | PENDING        | com sucesso        |
+      | nome_reserva   | email              | telefone_celular | horario             | pessoas | restaurante                          | status_reserva | resultado_esperado |
+      | Jorge Valdivia | valdivia@gmail.com | 123456789        | 2024-03-23T08:00:00 | 10      | 6ed285bb-f2f6-4bfa-a1bf-837ebd8019f5 | PENDING        | com sucesso        |
+      | Jorge Valdivia | valdivia@gmail.com | 123456789        | 2024-03-23T08:00:00 | 10      | 6ed285bb-f2f6-4bfa-a1bf-837ebd8019f5 | CONFIRMED      | com sucesso        |
+      | Jorge Valdivia | valdivia@gmail.com | 123456789        | 2024-03-23T08:00:00 | 10      | 6ed285bb-f2f6-4bfa-a1bf-837ebd8019f5 | RELEASED       | sem sucesso        |
+      | Jorge Valdivia | valdivia@gmail.com | 123456789        | 2024-03-23T08:00:00 | 10      | 6ed285bb-f2f6-4bfa-a1bf-837ebd8019f5 | CANCELED       | sem sucesso        |
