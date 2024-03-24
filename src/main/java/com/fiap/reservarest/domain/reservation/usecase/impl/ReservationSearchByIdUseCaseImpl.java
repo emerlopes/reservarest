@@ -14,7 +14,7 @@ public class ReservationSearchByIdUseCaseImpl implements ReservationSearchByIdUs
     }
 
     @Override
-    public ReservationDomainEntity execute(ReservationSearchByIdDomainEntity reservationSearchByIdDomainEntity) {
+    public ReservationDomainEntity execute(final ReservationSearchByIdDomainEntity reservationSearchByIdDomainEntity) {
         return reservationService.findReservationById(reservationSearchByIdDomainEntity);
     }
 }

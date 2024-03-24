@@ -9,14 +9,17 @@ import java.util.UUID;
 public class ReservationDomainEntity {
 
     private Long reservationId;
-    private final String reservationName;
-    private final String reservationEmail;
-    private final String reservationPhone;
-    private final LocalDateTime reservationTime;
-    private final Integer amountPeople;
+    private String reservationName;
+    private String reservationEmail;
+    private String reservationPhone;
+    private LocalDateTime reservationTime;
+    private Integer amountPeople;
     private UUID restaurantExternalId;
     private RestaurantDomainEntity restaurantDomainEntity;
     private ReservationStatusEnum status;
+
+    public ReservationDomainEntity() {
+    }
 
     public ReservationDomainEntity(
             final String reservationName,
@@ -108,10 +111,6 @@ public class ReservationDomainEntity {
 
     public ReservationStatusEnum getStatus() {
         return status;
-    }
-
-    public void setReservationId(Long reservationId) {
-        this.reservationId = reservationId;
     }
 
     public void setStatus(ReservationStatusEnum status) {

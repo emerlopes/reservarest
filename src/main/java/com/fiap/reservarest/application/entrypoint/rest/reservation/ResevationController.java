@@ -52,7 +52,7 @@ public class ResevationController {
         final var domainEntity = ReservationMapper.toDomainEntity(updateReservationRequestDTO);
         final var response = updateReservationUseCase.execute(domainEntity);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(
+        return ResponseEntity.status(HttpStatus.OK).body(
                 new CustomResponse<>().setData(ReservationMapper.toResponseDTO(response)));
     }
 
