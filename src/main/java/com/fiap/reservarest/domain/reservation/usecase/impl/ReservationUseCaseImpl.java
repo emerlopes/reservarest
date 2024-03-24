@@ -9,6 +9,8 @@ import com.fiap.reservarest.domain.reservation.usecase.ReservationUseCase;
 import com.fiap.reservarest.domain.restaurant.service.RestaurantService;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Objects;
+
 public class ReservationUseCaseImpl implements ReservationUseCase {
 
     private final ReservationService reservationService;
@@ -28,8 +30,8 @@ public class ReservationUseCaseImpl implements ReservationUseCase {
 
         final var reservationStatus = reservationDomainEntity.getStatus();
 
-        if (reservationStatus != null && reservationStatus.equals(ReservationStatusEnum.CANCELED)) {
-            throw new ReservationDomainCustomException("Status cannot be canceled for reservation creation");
+        if (reservationStatus != null && reservationStatus.equals(ReservationStatusEnum.CANCELED) || Objects.equals(reservationStatus, ReservationStatusEnum.RELEASED)) {
+            throw new ReservationDomainCustomException("Status cannot be canceled or released for reservation creation");
         }
 
         final var restaurantExternalId = reservationDomainEntity.getRestaurantExternalId();
