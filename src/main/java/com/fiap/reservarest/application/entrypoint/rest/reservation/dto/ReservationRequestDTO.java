@@ -2,12 +2,16 @@ package com.fiap.reservarest.application.entrypoint.rest.reservation.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fiap.reservarest.adapter.reservation.entity.ReservationStatusEnum;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class ReservationRequestDTO {
 
     @JsonProperty("reservation_name")
