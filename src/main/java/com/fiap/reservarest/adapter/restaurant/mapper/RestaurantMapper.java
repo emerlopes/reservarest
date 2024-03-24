@@ -127,7 +127,22 @@ public class RestaurantMapper {
                 restaurantDomainEntity.getTables(),
                 restaurantDomainEntity.getCreateAt()
         );
+    }
 
+    public static RestaurantRequestDTO toRequestDTO(
+            final String name,
+            final String location,
+            final String cuisineType,
+            final Double hoursOfOperation,
+            final Integer tables
+    ) {
+        return new RestaurantRequestDTO(
+                name,
+                location,
+                cuisineType,
+                hoursOfOperation,
+                tables
+        );
     }
 
 }
