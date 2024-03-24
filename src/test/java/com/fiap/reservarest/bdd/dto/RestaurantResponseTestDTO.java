@@ -1,14 +1,11 @@
-package com.fiap.reservarest.application.entrypoint.rest.restaurant.dto;
+package com.fiap.reservarest.bdd.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.ToString;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
-public record RestaurantResponseDTO(
+public record RestaurantResponseTestDTO(
         @JsonProperty("external_id")
         UUID externalId,
 

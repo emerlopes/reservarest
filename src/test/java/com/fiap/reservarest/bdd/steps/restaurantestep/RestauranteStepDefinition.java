@@ -1,16 +1,18 @@
-package com.fiap.reservarest.bdd;
+package com.fiap.reservarest.bdd.steps.restaurantestep;
 
 import com.fiap.reservarest.adapter.restaurant.mapper.RestaurantMapper;
 import com.fiap.reservarest.application.entrypoint.rest.restaurant.dto.RestaurantRequestDTO;
+import com.fiap.reservarest.bdd.dto.CustomResponseRestaurantDTO;
 import io.cucumber.datatable.DataTable;
 import io.cucumber.java.pt.Dado;
 import io.cucumber.java.pt.Então;
 import io.cucumber.java.pt.Quando;
 import io.restassured.response.Response;
+import org.springframework.http.MediaType;
 
 import static io.restassured.RestAssured.given;
 
-public class StepDefinition {
+public class RestauranteStepDefinition {
 
     private RestaurantRequestDTO restaurantRequest;
     private Response response;
@@ -34,16 +36,16 @@ public class StepDefinition {
     @Quando("o usuário solicitar o registro do restaurante")
     public void o_usuário_solicitar_o_registro_do_restaurante() {
         response = given()
-                .contentType("application/json")
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .body(restaurantRequest)
                 .when()
                 .post(HOST);
-
     }
 
     @Então("o registro do restaurante deve ser com sucesso")
-    public void o_registro_do_restaurante_deve_ser_com_sucesso() {
+    public CustomResponseRestaurantDTO o_registro_do_restaurante_deve_ser_com_sucesso() {
         response.then().statusCode(201);
+        return response.then().extract().as(CustomResponseRestaurantDTO.class);
     }
 
     @Então("o registro do restaurante deve ser sem sucesso")

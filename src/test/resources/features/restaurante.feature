@@ -15,6 +15,7 @@ Funcionalidade: Restaurante
     Exemplos:
       | nome                 | localizacao | tipo_cozinha | horario_funcionamento | quantidade_mesas | resultado_esperado |
       | Outback Steake House | Centro      | Steake House | 8                     | 10               | com sucesso        |
+      | Pizza Hut            | Bairro      | Fast Food    | 12                    | 30               | com sucesso        |
       |                      | Centro      | Steake House | 8                     | 10               | sem sucesso        |
       | Outback Steake House |             | Steake House | 8                     | 10               | sem sucesso        |
       | Outback Steake House | Centro      |              | 8                     | 10               | sem sucesso        |
