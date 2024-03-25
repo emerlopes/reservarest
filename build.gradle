@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.2.3'
     id 'io.spring.dependency-management' version '1.1.4'
+    id "io.gatling.gradle" version "3.10.5"
 }
 
 group = 'com.fiap'
@@ -64,6 +65,15 @@ dependencies {
         exclude group: 'org.codehaus.jackson', module: 'jackson-mapper-asl'
     }
 
+    implementation group: 'io.gatling', name: 'gatling-app', version: '3.10.5'
+    implementation group: 'io.gatling.highcharts', name: 'gatling-charts-highcharts', version: '3.10.5'
+
+}
+
+gatling {
+    simulations = {
+        include "**/performance/**" // Caminho para os seus scripts de simulação do Gatling
+    }
 }
 
 tasks.named('test') {
