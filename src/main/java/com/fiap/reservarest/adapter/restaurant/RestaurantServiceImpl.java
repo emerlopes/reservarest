@@ -30,16 +30,20 @@ public class RestaurantServiceImpl implements RestaurantService {
     }
 
     @Override
-    public RestaurantDomainEntity createRestaurant(
+    public RestaurantDomainEntity saveRestaurant(
             final RestaurantDomainEntity restaurantDomainEntity
     ) {
 
-        logger.info("Creating restaurant: {}", restaurantDomainEntity.getName());
+        logger.info("Saving restaurant: {}", restaurantDomainEntity.getName());
 
         final var entity = RestaurantMapper.toEntity(restaurantDomainEntity);
-        final var domainEntity = restaurantRepository.save(entity);
+        final var entitySaved = restaurantRepository.save(entity);
 
-        return RestaurantMapper.toDomainEntity(domainEntity);
+        final var domainEntity = RestaurantMapper.toDomainEntity(entitySaved);
+
+        logger.info("Restaurant saved: {}", domainEntity);
+
+        return domainEntity;
     }
 
     @Override
@@ -89,7 +93,7 @@ public class RestaurantServiceImpl implements RestaurantService {
             for (final var restaurant : RestaurantsEnum.values()) {
 
                 RestaurantDomainEntity restaurantDomainEntity = new RestaurantDomainEntity(
-                        UUID.randomUUID(),
+                        UUID.fromString(restaurant.getExternalId()),
                         restaurant.getName().toLowerCase(Locale.ROOT),
                         restaurant.getLocation().toLowerCase(Locale.ROOT),
                         restaurant.getCuisineType().toString().toLowerCase(Locale.ROOT),

@@ -1,6 +1,5 @@
 package com.fiap.reservarest.domain.restaurant.entity;
 
-import java.util.Locale;
 
 public class RestaurantSearchDomainEntity {
     private String keyWord;

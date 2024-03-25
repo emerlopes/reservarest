@@ -19,8 +19,8 @@ public record RestaurantRequestDTO(
         @NotNull(message = "Hours of operation is required")
         @Positive(message = "Hours of operation must be positive")
         Double hoursOfOperation,
-        @NotNull(message = "Capacity is required")
-        @Positive(message = "Capacity must be positive")
-        Integer capacity
+        @NotNull(message = "Tables is required")
+        @Positive(message = "Tables must be positive")
+        Integer tables
 ) {
 }

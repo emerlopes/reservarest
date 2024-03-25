@@ -19,6 +19,6 @@ public class RestaurantCreationUseCaseImpl implements RestaurantCreationUseCase 
             final RestaurantDomainEntity restaurantDomainEntity
     ) {
 
-        return restaurantService.createRestaurant(restaurantDomainEntity);
+        return restaurantService.saveRestaurant(restaurantDomainEntity);
     }
 }

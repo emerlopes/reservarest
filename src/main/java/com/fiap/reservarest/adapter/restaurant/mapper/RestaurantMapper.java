@@ -9,6 +9,7 @@ import com.fiap.reservarest.domain.restaurant.entity.RestaurantSearchDomainEntit
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Locale;
 import java.util.UUID;
 
 public class RestaurantMapper {
@@ -17,13 +18,13 @@ public class RestaurantMapper {
             final RestaurantEntity restaurantEntity
     ) {
         return new RestaurantDomainEntity(
-                restaurantEntity.getId(),
+                restaurantEntity.getRestaurantId(),
                 restaurantEntity.getExternalId(),
                 restaurantEntity.getName(),
                 restaurantEntity.getLocation(),
                 restaurantEntity.getCuisineType(),
                 restaurantEntity.getHoursOfOperation(),
-                restaurantEntity.getCapacity(),
+                restaurantEntity.getTables(),
                 restaurantEntity.getCreateAt()
         );
     }
@@ -39,7 +40,7 @@ public class RestaurantMapper {
                         restaurantEntity.getLocation(),
                         restaurantEntity.getCuisineType(),
                         restaurantEntity.getHoursOfOperation(),
-                        restaurantEntity.getCapacity(),
+                        restaurantEntity.getTables(),
                         restaurantEntity.getCreateAt()
                 ))
                 .toList();
@@ -50,11 +51,11 @@ public class RestaurantMapper {
     ) {
         return new RestaurantDomainEntity(
                 UUID.randomUUID(),
-                restaurantRequestDTO.name(),
-                restaurantRequestDTO.location(),
-                restaurantRequestDTO.cuisineType(),
+                restaurantRequestDTO.name().toLowerCase(Locale.ROOT),
+                restaurantRequestDTO.location().toLowerCase(Locale.ROOT),
+                restaurantRequestDTO.cuisineType().toLowerCase(Locale.ROOT),
                 restaurantRequestDTO.hoursOfOperation(),
-                restaurantRequestDTO.capacity(),
+                restaurantRequestDTO.tables(),
                 LocalDateTime.now()
         );
     }
@@ -69,7 +70,7 @@ public class RestaurantMapper {
                 restaurantDomainEntity.getLocation(),
                 restaurantDomainEntity.getCuisineType(),
                 restaurantDomainEntity.getHoursOfOperation(),
-                restaurantDomainEntity.getCapacity(),
+                restaurantDomainEntity.getTables(),
                 restaurantDomainEntity.getCreateAt()
         );
     }
@@ -91,7 +92,7 @@ public class RestaurantMapper {
                 restaurantDomainEntity.getLocation(),
                 restaurantDomainEntity.getCuisineType(),
                 restaurantDomainEntity.getHoursOfOperation(),
-                restaurantDomainEntity.getCapacity(),
+                restaurantDomainEntity.getTables(),
                 restaurantDomainEntity.getCreateAt()
         );
 
@@ -107,7 +108,7 @@ public class RestaurantMapper {
                 restaurantDomainEntity.getLocation(),
                 restaurantDomainEntity.getCuisineType(),
                 restaurantDomainEntity.getHoursOfOperation(),
-                restaurantDomainEntity.getCapacity(),
+                restaurantDomainEntity.getTables(),
                 restaurantDomainEntity.getCreateAt()
         )).toList();
 
@@ -123,10 +124,25 @@ public class RestaurantMapper {
                 restaurantDomainEntity.getLocation(),
                 restaurantDomainEntity.getCuisineType(),
                 restaurantDomainEntity.getHoursOfOperation(),
-                restaurantDomainEntity.getCapacity(),
+                restaurantDomainEntity.getTables(),
                 restaurantDomainEntity.getCreateAt()
         );
+    }
 
+    public static RestaurantRequestDTO toRequestDTO(
+            final String name,
+            final String location,
+            final String cuisineType,
+            final Double hoursOfOperation,
+            final Integer tables
+    ) {
+        return new RestaurantRequestDTO(
+                name,
+                location,
+                cuisineType,
+                hoursOfOperation,
+                tables
+        );
     }
 
 }

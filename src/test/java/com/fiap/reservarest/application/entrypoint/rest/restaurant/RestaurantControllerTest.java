@@ -73,15 +73,15 @@ class RestaurantControllerTest {
     @Test
     void shouldSearchRestaurantWhenReturnIsEmpty() {
         // Arrange
-        List<RestaurantDomainEntity> restaurantSearchDomainEntityResult = Collections.singletonList(new RestaurantDomainEntity());
 
-        Mockito.when(restaurantSearchUseCase.execute(Mockito.any(RestaurantSearchDomainEntity.class))).thenReturn(restaurantSearchDomainEntityResult);
+        Mockito.when(restaurantSearchUseCase.execute(Mockito.any(RestaurantSearchDomainEntity.class))).thenReturn(new ArrayList<>());
 
         // Act
         final var result = restaurantController.searchRestaurant(null);
 
         // Assert
         assertThat(result).isNotNull();
+        assertThat(result.getStatusCodeValue()).isEqualTo(204);
     }
 
     @Test

@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.2.3'
     id 'io.spring.dependency-management' version '1.1.4'
+    id "io.gatling.gradle" version "3.10.5"
 }
 
 group = 'com.fiap'
@@ -19,6 +20,20 @@ configurations {
 
 repositories {
     mavenCentral()
+}
+
+ext {
+    // Versões das bibliotecas
+    springBootVersion = '2.5.0'
+    log4jVersion = '2.23.1'
+    lombokVersion = '1.18.20'
+    h2Version = '1.4.200'
+    mockitoVersion = '5.11.0'
+    hamcrestVersion = '2.2'
+    cucumberVersion = '7.16.1'
+    restAssuredVersion = '5.4.0'
+    junitPlatformSuiteVersion = '1.10.2'
+    jacksonDatabindVersion = '2.16.1'
 }
 
 dependencies {
@@ -39,7 +54,26 @@ dependencies {
     testImplementation group: 'org.mockito', name: 'mockito-core', version: '5.11.0'
     testImplementation group: 'org.hamcrest', name: 'hamcrest', version: '2.2'
 
+    // Dependências de teste
+    testImplementation "org.springframework.boot:spring-boot-starter-test:$springBootVersion"
+    testImplementation group: 'org.mockito', name: 'mockito-core', version: mockitoVersion
+    testImplementation group: 'org.hamcrest', name: 'hamcrest', version: hamcrestVersion
+    testImplementation group: 'io.cucumber', name: 'cucumber-java', version: cucumberVersion
+    testImplementation group: 'io.cucumber', name: 'cucumber-junit-platform-engine', version: cucumberVersion
+    testImplementation group: 'org.junit.platform', name: 'junit-platform-suite', version: junitPlatformSuiteVersion
+    testImplementation(group: 'io.rest-assured', name: 'rest-assured', version: restAssuredVersion) {
+        exclude group: 'org.codehaus.jackson', module: 'jackson-mapper-asl'
+    }
 
+    implementation group: 'io.gatling', name: 'gatling-app', version: '3.10.5'
+    implementation group: 'io.gatling.highcharts', name: 'gatling-charts-highcharts', version: '3.10.5'
+
+}
+
+gatling {
+    simulations = {
+        include "**/performance/**" // Caminho para os seus scripts de simulação do Gatling
+    }
 }
 
 tasks.named('test') {

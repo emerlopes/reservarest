@@ -1,6 +1,7 @@
 package com.fiap.reservarest.domain.restaurant.entity;
 
 import com.fiap.reservarest.domain.restaurant.exception.RestaurantDomainCustomException;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -13,7 +14,9 @@ public class RestaurantDomainEntity {
     private String location;
     private String cuisineType;
     private Double hoursOfOperation;
-    private Integer capacity;
+
+    @Setter
+    private Integer tables;
     private LocalDateTime createAt;
 
     public RestaurantDomainEntity() {
@@ -26,7 +29,7 @@ public class RestaurantDomainEntity {
             final String location,
             final String cuisineType,
             final Double hoursOfOperation,
-            final Integer capacity,
+            final Integer tables,
             final LocalDateTime createAt
     ) {
         this.id = id;
@@ -35,7 +38,7 @@ public class RestaurantDomainEntity {
         this.location = location;
         this.cuisineType = cuisineType;
         this.hoursOfOperation = hoursOfOperation;
-        this.capacity = capacity;
+        this.tables = tables;
         this.createAt = createAt;
 
         validate();
@@ -47,14 +50,14 @@ public class RestaurantDomainEntity {
             final String location,
             final String cuisineType,
             final Double hoursOfOperation,
-            final Integer capacity,
+            final Integer tables,
             final LocalDateTime createAt) {
         this.externalId = externalId;
         this.name = name;
         this.location = location;
         this.cuisineType = cuisineType;
         this.hoursOfOperation = hoursOfOperation;
-        this.capacity = capacity;
+        this.tables = tables;
         this.createAt = createAt;
 
         validate();
@@ -84,8 +87,8 @@ public class RestaurantDomainEntity {
         return hoursOfOperation;
     }
 
-    public Integer getCapacity() {
-        return capacity;
+    public Integer getTables() {
+        return tables;
     }
 
     public LocalDateTime getCreateAt() {
@@ -105,8 +108,22 @@ public class RestaurantDomainEntity {
         if (hoursOfOperation == null || hoursOfOperation.isNaN() || hoursOfOperation <= 0) {
             throw new RestaurantDomainCustomException("Hours of operation cannot be null or less than or equal to 0");
         }
-        if (capacity == null || capacity <= 0) {
+        if (tables == null || tables <= 0) {
             throw new RestaurantDomainCustomException("Capacity cannot be null or less than or equal to 0");
         }
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+                "id:" + id +
+                ", external_id:" + externalId +
+                ", name:'" + name + '\'' +
+                ", location:'" + location + '\'' +
+                ", cuisine_type:'" + cuisineType + '\'' +
+                ", hours_of_operation:" + hoursOfOperation +
+                ", tables:" + tables +
+                ", createAt:" + createAt +
+                '}';
     }
 }
