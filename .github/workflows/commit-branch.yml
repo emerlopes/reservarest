@@ -35,8 +35,5 @@ jobs:
           distribution: 'adopt'
           cache: gradle
 
-      - name: Execute application
-        run: ./gradlew bootRun
-
       - name: Run tests
         run: ./gradlew test
