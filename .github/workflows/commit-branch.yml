@@ -20,7 +20,7 @@ jobs:
           cache: gradle
 
       - name: Build with Gradle
-        run: ./gradlew build
+        run: ./gradlew build -x test
   test:
     needs: build
     runs-on: ubuntu-latest
