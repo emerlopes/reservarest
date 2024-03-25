@@ -1,11 +1,11 @@
 # language: pt
 
-Funcionalidade: Registrar Reserva
+Funcionalidade: Reserva
   Como um usuário
   Eu quero fazer uma reserva em um restaurante
   Para que eu possa garantir um lugar para comer
 
-  Esquema do Cenario: Registro de Reserva
+  Esquema do Cenario: Registrar Reserva
     Dado informado os seguintes dados da reserva:
       | nome_reserva   | email   | telefone_celular   | horario   | pessoas   | restaurante   | status_reserva   |
       | <nome_reserva> | <email> | <telefone_celular> | <horario> | <pessoas> | <restaurante> | <status_reserva> |
