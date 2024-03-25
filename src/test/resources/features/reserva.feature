@@ -18,3 +18,15 @@ Funcionalidade: Reserva
       | Jorge Valdivia | valdivia@gmail.com | 123456789        | 2024-03-23T08:00:00 | 10      | 6ed285bb-f2f6-4bfa-a1bf-837ebd8019f5 | CONFIRMED      | com sucesso        |
       | Jorge Valdivia | valdivia@gmail.com | 123456789        | 2024-03-23T08:00:00 | 10      | 6ed285bb-f2f6-4bfa-a1bf-837ebd8019f5 | RELEASED       | sem sucesso        |
       | Jorge Valdivia | valdivia@gmail.com | 123456789        | 2024-03-23T08:00:00 | 10      | 6ed285bb-f2f6-4bfa-a1bf-837ebd8019f5 | CANCELED       | sem sucesso        |
+
+  @ignore
+  Esquema do Cenario: Atualizar Reserva
+    Dado informado os seguintes dados da reserva
+      | reserva   | status   |
+      | <reserva> | <status> |
+
+    Exemplos:
+      | reserva | status    |
+      | 1       | CONFIRMED |
+      | 2       | RELEASED  |
+      | 3       | CANCELED  |
