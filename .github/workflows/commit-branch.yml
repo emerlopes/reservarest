@@ -34,12 +34,6 @@ jobs:
           java-version: '17'
           distribution: 'adopt'
           cache: gradle
-
-      - name: Set up Docker
-        uses: docker/setup-buildx-action@v1
-
-      - name: Build Docker image
-        run: docker build . -t -f ./Dockerfile
-
+          
       - name: Run tests
         run: ./gradlew test
